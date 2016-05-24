@@ -9,28 +9,22 @@ public class AN_GMSGeneralProxy : MonoBehaviour {
 		AN_ProxyPool.CallStatic(CLASS_NAME, methodName, args);
 	}
 
+#if UNITY_ANDROID
+	private static ReturnType CallActivityFunction<ReturnType>(string methodName, params object[] args) {
+		return AN_ProxyPool.CallStatic<ReturnType>(CLASS_NAME, methodName, args);
+	}
+#endif
+
 	//--------------------------------------
 	// Play Service
 	//--------------------------------------
 
-	public static void initTagManager(string containerId, string binDataId) {
-		CallActivityFunction("initTagManager", containerId, binDataId);
-	}
-
-	public static void getValueFromContainer(string key) {
-		CallActivityFunction("getValueFromContainer", key);
-	}
-
-	public static void refreshContainer() {
-		CallActivityFunction("refreshContainer");
-	}
-
-	public static void pushValue(string key, string value) {
-		CallActivityFunction("pushValue", key, value);
-	}
-
-	public static void pushEvent(string tagEvent, string key, string value) {
-		CallActivityFunction("pushEvent", tagEvent, key, value);
+	public static GP_PlayServicesStatus GetPlayServicesStatus() {
+#if UNITY_ANDROID
+		return (GP_PlayServicesStatus)CallActivityFunction<int>("GetPlayServicesStatus");
+#else
+		return GP_PlayServicesStatus.SERVICE_MISSING;
+#endif
 	}
 
 	public static void loadGoogleAccountNames() {
@@ -64,7 +58,10 @@ public class AN_GMSGeneralProxy : MonoBehaviour {
 	public static void invalidateToken(string token) {
 		CallActivityFunction("invalidateToken", token);
 	}
-	
+
+	public static void GetGamesServerAuthCode() {
+		CallActivityFunction("GetGamesServerAuthCode");
+	}
 	
 	public static void playServiceDisconnect() {
 		CallActivityFunction("playServiceDisconnect");
@@ -164,12 +161,9 @@ public class AN_GMSGeneralProxy : MonoBehaviour {
 	}
 
 
-
 	public static void OnApplicationPause(bool isPaused) {
 		CallActivityFunction("OnApplicationPause", isPaused);
 	}
-
-
 	
 	// --------------------------------------
 	// Saved Games Bridge
@@ -200,29 +194,4 @@ public class AN_GMSGeneralProxy : MonoBehaviour {
 	public static void DeleteSpanshotByName_Bridge(string name) {
 		CallActivityFunction("DeleteSpanshotByName_Bridge", name);
 	}
-
-	//--------------------------------------
-	// Goole Cloud
-	//--------------------------------------
-	
-	public static void ListStates() {
-		CallActivityFunction("ListStates_Bridge");
-	}
-	
-	public static void UpdateState(int stateKey, string data) {
-		CallActivityFunction("UpdateState_Bridge", stateKey.ToString(), data);
-	}
-	
-	public static void ResolveState(int stateKey, string resolvedData, string resolvedVersion) {
-		CallActivityFunction("ResolveState_Bridge", stateKey.ToString(), resolvedData, resolvedVersion);
-	}
-	
-	public static void DeleteState(int stateKey)  {
-		CallActivityFunction("DeleteState_Bridge", stateKey.ToString());
-	}
-	
-	public static void LoadState(int stateKey)  {
-		CallActivityFunction("LoadState_Bridge", stateKey.ToString());
-	}
-
 }

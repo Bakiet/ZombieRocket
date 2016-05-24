@@ -18,7 +18,8 @@ public class GoogleCloudMessageService : SA_Singleton<GoogleCloudMessageService>
 	public static event Action<string> ActionCouldMessageLoaded 						 						= delegate {};
 	public static event Action<GP_GCM_RegistrationResult> ActionCMDRegistrationResult  							= delegate {};
 
-	public static event Action<string, Dictionary<string, object>> ActionGCMPushReceived						= delegate {};
+	public static event Action<string, Dictionary<string, object>> ActionGCMPushLaunched						= delegate {};
+ 	public static event Action<string, Dictionary<string, object>> ActionGCMPushReceived						= delegate {};
 	public static event Action<string, Dictionary<string, object>, bool> ActionGameThriveNotificationReceived	= delegate {};
 	public static event Action<string, Dictionary<string, object>> ActionParsePushReceived 						= delegate {};
 
@@ -68,11 +69,15 @@ public class GoogleCloudMessageService : SA_Singleton<GoogleCloudMessageService>
 			AndroidNativeSettings.Instance.PushNotificationLargeIcon == null ? string.Empty : AndroidNativeSettings.Instance.PushNotificationLargeIcon.name.ToLower(),
 		    AndroidNativeSettings.Instance.PushNotificationSound == null ? string.Empty : AndroidNativeSettings.Instance.PushNotificationSound.name,
 		    AndroidNativeSettings.Instance.EnableVibrationPush, AndroidNativeSettings.Instance.ShowPushWhenAppIsForeground,
-			AndroidNativeSettings.Instance.ReplaceOldNotificationWithNew);
+			AndroidNativeSettings.Instance.ReplaceOldNotificationWithNew,
+			string.Format("{0}|{1}|{2}|{3}", 255 * AndroidNativeSettings.Instance.PushNotificationColor.a,
+		              						 255 * AndroidNativeSettings.Instance.PushNotificationColor.r,
+		              						 255 * AndroidNativeSettings.Instance.PushNotificationColor.g,
+		              						 255 * AndroidNativeSettings.Instance.PushNotificationColor.b));
 	}
 
-	public void InitPushNotifications(string smallIcon, string largeIcon, string sound, bool enableVibrationPush, bool showWhenAppForeground, bool replaceOldNotificationWithNew) {
-		AN_NotificationProxy.InitPushNotifications (smallIcon, largeIcon, sound,enableVibrationPush, showWhenAppForeground, replaceOldNotificationWithNew);
+	public void InitPushNotifications(string smallIcon, string largeIcon, string sound, bool enableVibrationPush, bool showWhenAppForeground, bool replaceOldNotificationWithNew, string color) {
+		AN_NotificationProxy.InitPushNotifications (smallIcon, largeIcon, sound,enableVibrationPush, showWhenAppForeground, replaceOldNotificationWithNew, color);
 	}
 
 	public void InitParsePushNotifications() {
@@ -103,6 +108,22 @@ public class GoogleCloudMessageService : SA_Singleton<GoogleCloudMessageService>
 
 	private void GCMNotificationCallback(string data) {
 		Debug.Log("[GCMNotificationCallback] JSON Data: " + data);
+
+		string[] bundle = data.Split (new string[] { "|" }, StringSplitOptions.None);
+		string msg = bundle[0];
+		Dictionary<string, object> json = ANMiniJSON.Json.Deserialize(bundle[1]) as Dictionary<string, object>;
+
+		ActionGCMPushReceived(msg, json);
+	}
+
+	private void GCMNotificationLaunchedCallback(string data) {
+		Debug.Log("[GCMNotificationLaunchedCallback] JSON Data: " + data);
+
+		string[] bundle = data.Split (new string[] { "|" }, StringSplitOptions.None);
+		string msg = bundle[0];
+		Dictionary<string, object> json = ANMiniJSON.Json.Deserialize(bundle[1]) as Dictionary<string, object>;
+		
+		ActionGCMPushLaunched(msg, json);
 	}
 	
 	//--------------------------------------

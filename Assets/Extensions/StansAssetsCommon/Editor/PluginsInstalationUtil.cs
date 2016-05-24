@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEditor;
 using System.Collections;
 
@@ -29,15 +29,15 @@ public class PluginsInstalationUtil : MonoBehaviour {
 		
 		
 		//IOS Native
-		FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_Camera.mm.txt", 		PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_Camera.mm");
-		FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_GameCenter.mm.txt", 	PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_GameCenter.mm");
-		FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_iAd.mm.txt", 			PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_iAd.mm");
-		FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_InApp.mm.txt", 		PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_InApp.mm");
-		FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_Media.mm.txt", 		PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_Media.mm");
-		FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_ReplayKit.mm.txt", 	PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_ReplayKit.mm");
-		FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_CloudKit.mm.txt", 		PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_CloudKit.mm");
-		FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_NSData+Base64.h.txt", 	PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_NSData+Base64.h");
-		FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_NSData+Base64.m.txt", 	PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_NSData+Base64.m");
+		SA_FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_Camera.mm.txt", 		PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_Camera.mm");
+		SA_FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_GameCenter.mm.txt", 	PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_GameCenter.mm");
+		SA_FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_iAd.mm.txt", 			PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_iAd.mm");
+		SA_FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_InApp.mm.txt", 		PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_InApp.mm");
+		SA_FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_Media.mm.txt", 		PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_Media.mm");
+		SA_FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_ReplayKit.mm.txt", 	PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_ReplayKit.mm");
+		SA_FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_CloudKit.mm.txt", 		PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_CloudKit.mm");
+		SA_FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_NSData+Base64.h.txt", 	PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_NSData+Base64.h");
+		SA_FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_NSData+Base64.m.txt", 	PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_NSData+Base64.m");
 		
 		
 		IOS_Install_SocialPart();
@@ -49,23 +49,23 @@ public class PluginsInstalationUtil : MonoBehaviour {
 	
 	public static void InstallGMAPart() {
 		//GMA
-		FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "GMA_SA_Lib_Proxy.mm.txt", 	PluginsInstalationUtil.IOS_DESTANATION_PATH + "GMA_SA_Lib_Proxy.mm");
-		FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "GMA_SA_Lib.h.txt", 	PluginsInstalationUtil.IOS_DESTANATION_PATH + "GMA_SA_Lib.h");
-		FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "GMA_SA_Lib.m.txt", 	PluginsInstalationUtil.IOS_DESTANATION_PATH + "GMA_SA_Lib.m");
+		SA_FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "GMA_SA_Lib_Proxy.mm.txt", 	PluginsInstalationUtil.IOS_DESTANATION_PATH + "GMA_SA_Lib_Proxy.mm");
+		SA_FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "GMA_SA_Lib.h.txt", 	PluginsInstalationUtil.IOS_DESTANATION_PATH + "GMA_SA_Lib.h");
+		SA_FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "GMA_SA_Lib.m.txt", 	PluginsInstalationUtil.IOS_DESTANATION_PATH + "GMA_SA_Lib.m");
 		
 	}
 	
 	
 	public static void IOS_Install_SocialPart() {
 		//IOS Native +  MSP
-		FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_SocialGate.mm.txt", 	PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_SocialGate.mm");
-		FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_NativeCore.h.txt", 	PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_NativeCore.h");
-		FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_NativeCore.mm.txt", 	PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_NativeCore.mm");
+		SA_FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_SocialGate.mm.txt", 	PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_SocialGate.mm");
+		SA_FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_NativeCore.h.txt", 	PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_NativeCore.h");
+		SA_FileStaticAPI.CopyFile(PluginsInstalationUtil.IOS_SOURCE_PATH + "ISN_NativeCore.mm.txt", 	PluginsInstalationUtil.IOS_DESTANATION_PATH + "ISN_NativeCore.mm");
 	}
-
-
-
-
+	
+	
+	
+	
 	public static void Remove_FB_SDK_WithDialog() {
 		bool result = EditorUtility.DisplayDialog(
 			"Removing Facebook SDK",
@@ -78,47 +78,47 @@ public class PluginsInstalationUtil : MonoBehaviour {
 		}
 	}
 	public static void Remove_FB_SDK() {
-
-		FileStaticAPI.DeleteFolder(PluginsInstalationUtil.ANDROID_DESTANATION_PATH + "facebook");
-		FileStaticAPI.DeleteFolder("Plugins/facebook", false);
-		FileStaticAPI.DeleteFolder("Facebook", false);
-		FileStaticAPI.DeleteFolder("FacebookSDK", false);
-
+		
+		SA_FileStaticAPI.DeleteFolder(PluginsInstalationUtil.ANDROID_DESTANATION_PATH + "facebook");
+		SA_FileStaticAPI.DeleteFolder("Plugins/facebook", false);
+		SA_FileStaticAPI.DeleteFolder("Facebook", false);
+		SA_FileStaticAPI.DeleteFolder("FacebookSDK", false);
+		
 		//MSP
-		FileStaticAPI.DeleteFile("Extensions/MobileSocialPlugin/Example/Scripts/MSPFacebookUseExample.cs", false);
-		FileStaticAPI.DeleteFile("Extensions/MobileSocialPlugin/Example/Scripts/MSP_FacebookAnalyticsExample.cs", false);
-		FileStaticAPI.DeleteFile("Extensions/MobileSocialPlugin/Example/Scripts/MSP_FacebookAndroidTurnBasedAndGiftsExample.cs", false);
-
+		SA_FileStaticAPI.DeleteFile("Extensions/MobileSocialPlugin/Example/Scripts/MSPFacebookUseExample.cs", false);
+		SA_FileStaticAPI.DeleteFile("Extensions/MobileSocialPlugin/Example/Scripts/MSP_FacebookAnalyticsExample.cs", false);
+		SA_FileStaticAPI.DeleteFile("Extensions/MobileSocialPlugin/Example/Scripts/MSP_FacebookAndroidTurnBasedAndGiftsExample.cs", false);
+		
 		//FB v7
-		FileStaticAPI.DeleteFolder("Examples", false);
-		FileStaticAPI.DeleteFolder(PluginsInstalationUtil.IOS_DESTANATION_PATH + "Facebook", false);
-
-
-		FileStaticAPI.DeleteFolder(PluginsInstalationUtil.ANDROID_DESTANATION_PATH + "libs/bolts-android-1.2.0.jar");
-		FileStaticAPI.DeleteFolder(PluginsInstalationUtil.ANDROID_DESTANATION_PATH + "libs/facebook-android-sdk-4.7.0.jar");
-		FileStaticAPI.DeleteFolder(PluginsInstalationUtil.ANDROID_DESTANATION_PATH + "libs/facebook-android-wrapper-release.jar");
-
+		SA_FileStaticAPI.DeleteFolder("Examples", false);
+		SA_FileStaticAPI.DeleteFolder(PluginsInstalationUtil.IOS_DESTANATION_PATH + "Facebook", false);
+		
+		
+		SA_FileStaticAPI.DeleteFolder(PluginsInstalationUtil.ANDROID_DESTANATION_PATH + "libs/bolts-android-1.2.0.jar");
+		SA_FileStaticAPI.DeleteFolder(PluginsInstalationUtil.ANDROID_DESTANATION_PATH + "libs/facebook-android-sdk-4.7.0.jar");
+		SA_FileStaticAPI.DeleteFolder(PluginsInstalationUtil.ANDROID_DESTANATION_PATH + "libs/facebook-android-wrapper-release.jar");
+		
 		AssetDatabase.Refresh();
 	}
-
-
+	
+	
 	private static string AN_SoomlaGrowContent = "Extensions/AndroidNative/Other/Soomla/AN_SoomlaGrow.cs";
 	public static void DisableSoomlaFB() {
 		ChnageDefineState(AN_SoomlaGrowContent, "FACEBOOK_ENABLED", false);
 	}
-
-
-
 	
-
+	
+	
+	
+	
 	private static void ChnageDefineState(string file, string tag, bool IsEnabled) {
-
-		if(!FileStaticAPI.IsFileExists(file)) {
+		
+		if(!SA_FileStaticAPI.IsFileExists(file)) {
 			Debug.Log("ChnageDefineState for tag: " + tag + " File not found at path: " + file);
 			return;
 		}
 		
-		string content = FileStaticAPI.Read(file);
+		string content = SA_FileStaticAPI.Read(file);
 		
 		int endlineIndex;
 		endlineIndex = content.IndexOf(System.Environment.NewLine);
@@ -134,7 +134,7 @@ public class PluginsInstalationUtil : MonoBehaviour {
 			content 	= content.Replace(TagLine, "//#define " + tag);
 		}
 		
-		FileStaticAPI.Write(file, content);
+		SA_FileStaticAPI.Write(file, content);
 		
 	}
 	
@@ -232,10 +232,10 @@ public class PluginsInstalationUtil : MonoBehaviour {
 	
 	
 	public static void RemoveIOSFile(string filename) {
-		FileStaticAPI.DeleteFile(IOS_DESTANATION_PATH + filename + ".h");
-		FileStaticAPI.DeleteFile(IOS_DESTANATION_PATH + filename + ".m");
-		FileStaticAPI.DeleteFile(IOS_DESTANATION_PATH + filename + ".mm");
-		FileStaticAPI.DeleteFile(IOS_DESTANATION_PATH + filename + ".a");
+		SA_FileStaticAPI.DeleteFile(IOS_DESTANATION_PATH + filename + ".h");
+		SA_FileStaticAPI.DeleteFile(IOS_DESTANATION_PATH + filename + ".m");
+		SA_FileStaticAPI.DeleteFile(IOS_DESTANATION_PATH + filename + ".mm");
+		SA_FileStaticAPI.DeleteFile(IOS_DESTANATION_PATH + filename + ".a");
 	}
 	
 	
@@ -246,56 +246,66 @@ public class PluginsInstalationUtil : MonoBehaviour {
 	
 	
 	public static void EnableGooglePlayAPI() {
-		FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + "google_play/an_googleplay.txt", 	ANDROID_DESTANATION_PATH + "libs/an_googleplay.jar");
-		FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + "google_play/google-play-services.txt", 	ANDROID_DESTANATION_PATH + "libs/google-play-services.jar");
+		SA_FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + "google_play/an_googleplay.txt", 	ANDROID_DESTANATION_PATH + "libs/an_googleplay.jar");
+		SA_FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + "google_play/google-play-services.txt", 	ANDROID_DESTANATION_PATH + "libs/google-play-services.jar");
 	}
 	
 	public static void DisableGooglePlayAPI() {
-		FileStaticAPI.DeleteFile(ANDROID_DESTANATION_PATH + "libs/google-play-services.jar");
-		FileStaticAPI.DeleteFile(ANDROID_DESTANATION_PATH + "libs/an_googleplay.jar");
+		SA_FileStaticAPI.DeleteFile(ANDROID_DESTANATION_PATH + "libs/google-play-services.jar");
+		SA_FileStaticAPI.DeleteFile(ANDROID_DESTANATION_PATH + "libs/an_googleplay.jar");
+	}
+	
+	
+	public static void EnableAndroidCampainAPI() {
+		SA_FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + "libs/sa_analytics.txt", 	ANDROID_DESTANATION_PATH + "libs/sa_analytics.jar");
+	}
+	
+	
+	public static void DisableAndroidCampainAPI() {
+		SA_FileStaticAPI.DeleteFile(ANDROID_DESTANATION_PATH + "libs/sa_analytics.jar");
 	}
 	
 	
 	public static void EnableAppLicensingAPI() {
-		FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + "app_licensing/an_licensing_library.txt", 	ANDROID_DESTANATION_PATH + "libs/an_licensing_library.jar");
+		SA_FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + "app_licensing/an_licensing_library.txt", 	ANDROID_DESTANATION_PATH + "libs/an_licensing_library.jar");
 	}
 	
 	
 	public static void DisableAppLicensingAPI() {
-		FileStaticAPI.DeleteFile(ANDROID_DESTANATION_PATH + "libs/an_licensing_library.jar");
+		SA_FileStaticAPI.DeleteFile(ANDROID_DESTANATION_PATH + "libs/an_licensing_library.jar");
 	}
-
-
+	
+	
 	public static void EnableSoomlaAPI() {
-		FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + "libs/an_sa_soomla.txt", 	ANDROID_DESTANATION_PATH + "libs/an_sa_soomla.jar");
+		SA_FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + "libs/an_sa_soomla.txt", 	ANDROID_DESTANATION_PATH + "libs/an_sa_soomla.jar");
 	}
 	
 	
 	public static void DisableSoomlaAPI() {
-		FileStaticAPI.DeleteFile(ANDROID_DESTANATION_PATH + "libs/an_sa_soomla.jar");
+		SA_FileStaticAPI.DeleteFile(ANDROID_DESTANATION_PATH + "libs/an_sa_soomla.jar");
 	}
-
+	
 	
 	
 	public static void EnableBillingAPI() {
-		FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + "billing/an_billing.txt", 	ANDROID_DESTANATION_PATH + "libs/an_billing.jar");
+		SA_FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + "billing/an_billing.txt", 	ANDROID_DESTANATION_PATH + "libs/an_billing.jar");
 	}
 	
 	public static void DisableBillingAPI() {
-		FileStaticAPI.DeleteFile(ANDROID_DESTANATION_PATH + "libs/an_billing.jar");
+		SA_FileStaticAPI.DeleteFile(ANDROID_DESTANATION_PATH + "libs/an_billing.jar");
 	}
 	
 	
 	
 	
 	public static void EnableSocialAPI() {
-		FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + "social/an_social.txt", 	ANDROID_DESTANATION_PATH + "libs/an_social.jar");
-		FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + "social/twitter4j-core-3.0.5.txt", 	ANDROID_DESTANATION_PATH + "libs/twitter4j-core-3.0.5.jar");
+		SA_FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + "social/an_social.txt", 	ANDROID_DESTANATION_PATH + "libs/an_social.jar");
+		SA_FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + "social/twitter4j-core-3.0.5.txt", 	ANDROID_DESTANATION_PATH + "libs/twitter4j-core-3.0.5.jar");
 	}
 	
 	public static void DisableSocialAPI() {
-		FileStaticAPI.DeleteFile(ANDROID_DESTANATION_PATH + "libs/an_social.jar");
-		FileStaticAPI.DeleteFile(ANDROID_DESTANATION_PATH + "libs/twitter4j-core-3.0.5.jar");
+		SA_FileStaticAPI.DeleteFile(ANDROID_DESTANATION_PATH + "libs/an_social.jar");
+		SA_FileStaticAPI.DeleteFile(ANDROID_DESTANATION_PATH + "libs/twitter4j-core-3.0.5.jar");
 	}
 	
 	
@@ -305,11 +315,11 @@ public class PluginsInstalationUtil : MonoBehaviour {
 	
 	public static void EnableCameraAPI() {
 		//Unity 5 upgdare:
-		FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + "libs/image-chooser-library-1.3.0.txt", 	ANDROID_DESTANATION_PATH + "libs/image-chooser-library-1.3.0.jar");
+		SA_FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + "libs/image-chooser-library-1.6.0.txt", 	ANDROID_DESTANATION_PATH + "libs/image-chooser-library-1.6.0.jar");
 	}
 	
 	public static void DisableCameraAPI() {
-		FileStaticAPI.DeleteFile(ANDROID_DESTANATION_PATH + "libs/image-chooser-library-1.3.0.jar");
+		SA_FileStaticAPI.DeleteFile(ANDROID_DESTANATION_PATH + "libs/image-chooser-library-1.6.0.jar");
 	}
 	
 	
@@ -320,42 +330,47 @@ public class PluginsInstalationUtil : MonoBehaviour {
 		
 		
 		//Unity 5 upgdare:
-		FileStaticAPI.DeleteFile(ANDROID_SOURCE_PATH + "libs/httpclient-4.3.1.jar");
-		FileStaticAPI.DeleteFile(ANDROID_SOURCE_PATH + "libs/signpost-commonshttp4-1.2.1.2.jar");
-		FileStaticAPI.DeleteFile(ANDROID_SOURCE_PATH + "libs/signpost-core-1.2.1.2.jar");
-		FileStaticAPI.DeleteFile(ANDROID_SOURCE_PATH + "libs/libGoogleAnalyticsServices.jar");
+		SA_FileStaticAPI.DeleteFile(ANDROID_SOURCE_PATH + "libs/httpclient-4.3.1.jar");
+		SA_FileStaticAPI.DeleteFile(ANDROID_SOURCE_PATH + "libs/signpost-commonshttp4-1.2.1.2.jar");
+		SA_FileStaticAPI.DeleteFile(ANDROID_SOURCE_PATH + "libs/signpost-core-1.2.1.2.jar");
+		SA_FileStaticAPI.DeleteFile(ANDROID_SOURCE_PATH + "libs/libGoogleAnalyticsServices.jar");
 		
-		FileStaticAPI.DeleteFile(ANDROID_SOURCE_PATH + "libs/android-support-v4.jar");
-		FileStaticAPI.DeleteFile(ANDROID_SOURCE_PATH + "libs/image-chooser-library-1.3.0.jar");
-		FileStaticAPI.DeleteFile(ANDROID_SOURCE_PATH + "libs/twitter4j-core-3.0.5.jar");
-		FileStaticAPI.DeleteFile(ANDROID_SOURCE_PATH + "libs/google-play-services.jar");
-		
-		
-		FileStaticAPI.DeleteFile(ANDROID_SOURCE_PATH + "social/an_social.jar");
-		FileStaticAPI.DeleteFile(ANDROID_SOURCE_PATH + "social/twitter4j-core-3.0.5.jar");
-		
-		
-		FileStaticAPI.DeleteFile(ANDROID_SOURCE_PATH + "google_play/an_googleplay.jar");
-		FileStaticAPI.DeleteFile(ANDROID_SOURCE_PATH + "google_play/google-play-services.jar");
-		
-		FileStaticAPI.DeleteFile(ANDROID_SOURCE_PATH + "billing/an_billing.jar");
+		SA_FileStaticAPI.DeleteFile(ANDROID_SOURCE_PATH + "libs/android-support-v4.jar");
+
+		//Remove previous Image Chooser Library version
+		SA_FileStaticAPI.DeleteFile(ANDROID_DESTANATION_PATH + "libs/image-chooser-library-1.3.0.jar");
+		SA_FileStaticAPI.DeleteFile(ANDROID_SOURCE_PATH + "libs/image-chooser-library-1.6.0.jar");
+
+		SA_FileStaticAPI.DeleteFile(ANDROID_SOURCE_PATH + "libs/twitter4j-core-3.0.5.jar");
+		SA_FileStaticAPI.DeleteFile(ANDROID_SOURCE_PATH + "libs/google-play-services.jar");
 		
 		
+		SA_FileStaticAPI.DeleteFile(ANDROID_SOURCE_PATH + "social/an_social.jar");
+		SA_FileStaticAPI.DeleteFile(ANDROID_SOURCE_PATH + "social/twitter4j-core-3.0.5.jar");
 		
-		FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + "libs/android-support-v4.txt", ANDROID_DESTANATION_PATH + "libs/android-support-v4.jar");
-		FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + "androidnative.txt", 	        ANDROID_DESTANATION_PATH + "androidnative.jar");
-		FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + "mobilenativepopups.txt", 	        ANDROID_DESTANATION_PATH + "mobilenativepopups.jar");
+		
+		SA_FileStaticAPI.DeleteFile(ANDROID_SOURCE_PATH + "google_play/an_googleplay.jar");
+		SA_FileStaticAPI.DeleteFile(ANDROID_SOURCE_PATH + "google_play/google-play-services.jar");
+		
+		SA_FileStaticAPI.DeleteFile(ANDROID_SOURCE_PATH + "billing/an_billing.jar");
 		
 		
 		
+		SA_FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + "libs/android-support-v4.txt", 	ANDROID_DESTANATION_PATH + "libs/android-support-v4.jar");
+		SA_FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + "androidnative.txt", 	        	ANDROID_DESTANATION_PATH + "androidnative.jar");
+		SA_FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + "mobilenativepopups.txt", 	        ANDROID_DESTANATION_PATH + "mobilenativepopups.jar");
+		SA_FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + "sa_analytics.txt", 	        	ANDROID_DESTANATION_PATH + "sa_analytics.jar");
 		
 		
-		FileStaticAPI.CopyFolder(ANDROID_SOURCE_PATH + "facebook", 			ANDROID_DESTANATION_PATH + "facebook");
+		
+		
+		
+		SA_FileStaticAPI.CopyFolder(ANDROID_SOURCE_PATH + "facebook", 			ANDROID_DESTANATION_PATH + "facebook");
 		
 		#if UNITY_3_5 || UNITY_4_0 || UNITY_4_1	|| UNITY_4_2 || UNITY_4_3 || UNITY_4_5 || UNITY_4_6
 		
 		#else
-		FileStaticAPI.DeleteFolder(ANDROID_SOURCE_PATH + "facebook");
+		SA_FileStaticAPI.DeleteFolder(ANDROID_SOURCE_PATH + "facebook");
 		#endif
 		
 		if(IsFirstInstall) {
@@ -371,49 +386,49 @@ public class PluginsInstalationUtil : MonoBehaviour {
 		
 		string file;
 		file = "AN_Res/res/values/analytics.xml";
-		if(!FileStaticAPI.IsFileExists(ANDROID_DESTANATION_PATH + file)) {
-			FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + file, 	ANDROID_DESTANATION_PATH + file);
+		if(!SA_FileStaticAPI.IsFileExists(ANDROID_DESTANATION_PATH + file)) {
+			SA_FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + file, 	ANDROID_DESTANATION_PATH + file);
 		}
 		
 		
 		file = "AN_Res/res/values/ids.xml";
-		if(!FileStaticAPI.IsFileExists(ANDROID_DESTANATION_PATH + file)) {
-			FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + file, 	ANDROID_DESTANATION_PATH + file);
+		if(!SA_FileStaticAPI.IsFileExists(ANDROID_DESTANATION_PATH + file)) {
+			SA_FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + file, 	ANDROID_DESTANATION_PATH + file);
 		}
 		
 		file = "AN_Res/res/xml/file_paths.xml";
-		if(!FileStaticAPI.IsFileExists(ANDROID_DESTANATION_PATH + file)) {
-			FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + file, 	ANDROID_DESTANATION_PATH + file);
+		if(!SA_FileStaticAPI.IsFileExists(ANDROID_DESTANATION_PATH + file)) {
+			SA_FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + file, 	ANDROID_DESTANATION_PATH + file);
 		}
 		
 		
 		file = "AN_Res/res/values/version.xml";
-		FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + file, 	ANDROID_DESTANATION_PATH + file);
-
-		file = "AN_Res/project.properties";
-		FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + file, 	ANDROID_DESTANATION_PATH + file);
+		SA_FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + file, 	ANDROID_DESTANATION_PATH + file);
 		
-		file = "AN_Res/AndroidManifest.xml";
-		FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + file, 	ANDROID_DESTANATION_PATH + file);
+		file = "AN_Res/project.properties";
+		SA_FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + file, 	ANDROID_DESTANATION_PATH + file);
+		
+		file = "AN_Res/AndroidManifest";
+		SA_FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + file + ".txt", 	ANDROID_DESTANATION_PATH + file + ".xml");
 		
 		//First install dependense		
 		
-		file = "AndroidManifest.xml";
-		if(!FileStaticAPI.IsFileExists(ANDROID_DESTANATION_PATH + file)) {
-			FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + file, 	ANDROID_DESTANATION_PATH + file);
+		file = "AndroidManifest";
+		if(!SA_FileStaticAPI.IsFileExists(ANDROID_DESTANATION_PATH + file)) {
+			SA_FileStaticAPI.CopyFile(ANDROID_SOURCE_PATH + file + ".txt", 	ANDROID_DESTANATION_PATH + file + ".xml");
 		} 
 		
 		AssetDatabase.Refresh();
 		
 	}
-
-
-
+	
+	
+	
 	public static bool IsFacebookInstalled {
 		get {
-			return FileStaticAPI.IsFileExists("Facebook/Scripts/FB.cs") || FileStaticAPI.IsFileExists("FacebookSDK/SDK/Scripts/FB.cs");
+			return SA_FileStaticAPI.IsFileExists("Facebook/Scripts/FB.cs") || SA_FileStaticAPI.IsFileExists("FacebookSDK/SDK/Scripts/FB.cs");
 		}
 	}
-
-
+	
+	
 }

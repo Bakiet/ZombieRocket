@@ -30,7 +30,7 @@ public class SA_EditorAd : SA_Singleton<SA_EditorAd> {
 	public static event Action<bool> OnVideoLoadComplete 	= delegate {};
 	public static event Action		 OnVideoLeftApplication = delegate {};
 
-	private SA_EditorTestingUIController _EditorUI = null;
+	private SA_Ad_EditorUIController _EditorUI = null;
 
 	void Awake() {
 		DontDestroyOnLoad(gameObject);
@@ -125,13 +125,13 @@ public class SA_EditorAd : SA_Singleton<SA_EditorAd> {
 		}
 	}
 
-	private SA_EditorTestingUIController EditorUI {
+	private SA_Ad_EditorUIController EditorUI {
 		get {
 #if UNITY_EDITOR
 			if (_EditorUI == null) {
-				GameObject o = AssetDatabase.LoadAssetAtPath("Assets/Extensions/StansAssetsCommon/EditorTesting/UI/Graphics/AdsEditorTestingUI.prefab", typeof(GameObject)) as GameObject;
+				GameObject o = AssetDatabase.LoadAssetAtPath("Assets/Extensions/StansAssetsCommon/EditorTesting/UI/Prefabs/AdsEditorTestingUI.prefab", typeof(GameObject)) as GameObject;
 				GameObject go = Instantiate(o) as GameObject;
-				_EditorUI = go.GetComponent<SA_EditorTestingUIController>();
+				_EditorUI = go.GetComponent<SA_Ad_EditorUIController>();
 			}
 #endif
 			return _EditorUI;

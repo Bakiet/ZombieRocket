@@ -15,12 +15,12 @@ public class InitAndroidInventoryTask : MonoBehaviour {
 	public void Run() {
 
 		Debug.Log("InitAndroidInventoryTask task started");
-		if(AndroidInAppPurchaseManager.Instance.IsConnected) {
+		if(AndroidInAppPurchaseManager.Client.IsConnected) {
 			OnBillingConnected(null);
 		} else {
 			AndroidInAppPurchaseManager.ActionBillingSetupFinished += OnBillingConnected;
-			if(!AndroidInAppPurchaseManager.Instance.IsConnectingToServiceInProcess) {
-				AndroidInAppPurchaseManager.Instance.LoadStore();
+			if(!AndroidInAppPurchaseManager.Client.IsConnectingToServiceInProcess) {
+				AndroidInAppPurchaseManager.Client.Connect();
 			}
 		}
 	}
@@ -51,13 +51,13 @@ public class InitAndroidInventoryTask : MonoBehaviour {
 		Debug.Log("OnBillingConnected COMPLETE");
 		//Store connection is Successful. Next we loading product and customer purchasing details
 
-		if(AndroidInAppPurchaseManager.instance.IsInventoryLoaded) {
+		if(AndroidInAppPurchaseManager.Client.IsInventoryLoaded) {
 			Debug.Log("IsInventoryLoaded COMPLETE");
 			ActionComplete();
 		} else {
 			AndroidInAppPurchaseManager.ActionRetrieveProducsFinished += OnRetrieveProductsFinised;
-			if(!AndroidInAppPurchaseManager.Instance.IsProductRetrievingInProcess) {
-				AndroidInAppPurchaseManager.Instance.RetrieveProducDetails();
+			if(!AndroidInAppPurchaseManager.Client.IsProductRetrievingInProcess) {
+				AndroidInAppPurchaseManager.Client.RetrieveProducDetails();
 			}
 		}
 

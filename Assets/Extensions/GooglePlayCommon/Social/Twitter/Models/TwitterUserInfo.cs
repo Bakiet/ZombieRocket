@@ -1,4 +1,4 @@
-﻿////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 //  
 // @module Common Android Native Lib
 // @author Osipov Stanislav (Stan's Assets) 
@@ -127,7 +127,7 @@ public class TwitterUserInfo  {
 		}
 
 
-		WWWTextureLoader loader = WWWTextureLoader.Create();
+		SA_WWWTextureLoader loader = SA_WWWTextureLoader.Create();
 		loader.OnLoad += OnProfileImageLoaded;
 		loader.LoadTexture(_profile_image_url_https);
 	}
@@ -139,7 +139,7 @@ public class TwitterUserInfo  {
 			return;
 		}
 
-		WWWTextureLoader loader = WWWTextureLoader.Create();
+		SA_WWWTextureLoader loader = SA_WWWTextureLoader.Create();
 		loader.OnLoad += OnProfileBackgroundLoaded;
 		loader.LoadTexture(_profile_background_image_url_https);
 	}

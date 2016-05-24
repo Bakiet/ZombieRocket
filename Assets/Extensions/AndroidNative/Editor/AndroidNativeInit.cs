@@ -9,7 +9,7 @@ public class AndroidNativeInit  {
 
 
 		#if UNITY_ANDROID
-		if(FileStaticAPI.IsFileExists("Extensions/UltimateMobile/Resources/UltimateMobileSettings.asset")) {
+		if(SA_FileStaticAPI.IsFileExists("Extensions/UltimateMobile/Resources/UltimateMobileSettings.asset")) {
 			return;
 		}
 

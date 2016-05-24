@@ -6,7 +6,7 @@ public class OpenAchievements : MonoBehaviour {
 	public void Open()
 	{
 #if USE_IAP
-		GooglePlayManager.instance.showAchievementsUI();
+		GooglePlayManager.Instance.ShowAchievementsUI();
 #endif
 
 	}

@@ -65,6 +65,10 @@ public class GooglePlayManager : SA_Singleton<GooglePlayManager> {
 	// PUBLIC API CALL METHODS
 	//--------------------------------------
 
+	public GP_PlayServicesStatus GetPlayServicesStatus() {
+		return AN_GMSGeneralProxy.GetPlayServicesStatus();
+	}
+
 	public void RetrieveDeviceGoogleAccounts() {
 		AN_GMSGeneralProxy.loadGoogleAccountNames();
 	}
@@ -78,79 +82,62 @@ public class GooglePlayManager : SA_Singleton<GooglePlayManager> {
 		LoadToken(currentAccount, "oauth2:https://www.googleapis.com/auth/games");
 	}
 
+	public void GetGamesServerAuthCode() {
+
+	}
+
 	public void InvalidateToken(string token) {
 		AN_GMSGeneralProxy.invalidateToken(token);
 	}
 
-
-
-	[Obsolete("showAchievementsUI is deprecated, please use ShowAchievementsUI instead.")]
-	public void showAchievementsUI() {
-		ShowAchievementsUI();
-	}
+	
 
 	public void ShowAchievementsUI() {
 		if (!GooglePlayConnection.CheckState ()) { return; }
 		AN_GMSGeneralProxy.showAchievementsUI ();
 	}
-
-	[Obsolete("showLeaderBoardsUI is deprecated, please use showLeaderBoardsUI instead.")]
-	public void showLeaderBoardsUI() {
-		ShowLeaderBoardsUI();
-	}
+	
 
 	public void ShowLeaderBoardsUI() {
 		if (!GooglePlayConnection.CheckState ()) { return; }
 		AN_GMSGeneralProxy.showLeaderBoardsUI ();
 	}
-
-	[Obsolete("showLeaderBoard is deprecated, please use ShowLeaderBoard instead.")]
-	public void showLeaderBoard(string leaderboardName) {
-		ShowLeaderBoard(leaderboardName);
-	}
 	
+
 
 	public void ShowLeaderBoard(string leaderboardName) {
 		if (!GooglePlayConnection.CheckState ()) { return; }
 		AN_GMSGeneralProxy.showLeaderBoard (leaderboardName);
 	}
-
-	[Obsolete("showLeaderBoardById is deprecated, please use ShowLeaderBoardById instead.")]
-	public void showLeaderBoardById(string leaderboardId) {
-		ShowLeaderBoardById(leaderboardId);
-	}
+	
 
 	public void ShowLeaderBoardById(string leaderboardId) {
 		if (!GooglePlayConnection.CheckState ()) { return; }
 		AN_GMSGeneralProxy.showLeaderBoardById (leaderboardId);
 	}
 
-
-	[Obsolete("submitScore is deprecated, please use SubmitScore instead.")]
-	public void submitScore(string leaderboardName, long score) {
-		SubmitScore(leaderboardName, score);
-	}
 	
+
 	public void SubmitScore(string leaderboardName, long score) {
+
+		if(AndroidNativeSettings.Instance.Is_Leaderboards_Editor_Notifications_Enabled)
+			SA_EditorNotifications.ShowNotification(leaderboardName, score + " Scores Submitted", SA_EditorNotificationType.Achievement);
+
 		if (!GooglePlayConnection.CheckState ()) { return; }
 		AN_GMSGeneralProxy.submitScore (leaderboardName, score);
 	}
-
-	[Obsolete("submitScoreById is deprecated, please use SubmitScoreById instead.")]
-	public void submitScoreById(string leaderboardId, long score) {
-		SubmitScoreById(leaderboardId, score);
-	}
+	
 
 	public void SubmitScoreById(string leaderboardId, long score) {
+
+		if(AndroidNativeSettings.Instance.Is_Leaderboards_Editor_Notifications_Enabled)
+			SA_EditorNotifications.ShowNotification(leaderboardId, score + " Scores Submitted", SA_EditorNotificationType.Achievement);
+
 		if (!GooglePlayConnection.CheckState ()) { return; }
 		AN_GMSGeneralProxy.submitScoreById (leaderboardId, score);
 	}
 
-
-	[Obsolete("loadLeaderBoards is deprecated, please use LoadLeaderBoards instead.")]
-	public void loadLeaderBoards() {
-		LoadLeaderBoards();
-	}
+	
 
 	public void LoadLeaderBoards() {
 		if (!GooglePlayConnection.CheckState ()) { return; }
@@ -164,21 +151,13 @@ public class GooglePlayManager : SA_Singleton<GooglePlayManager> {
 
 		AN_GMSGeneralProxy.loadLeaderboardInfoLocal(leaderboard.Id, requestId);
 	}
-
-	[Obsolete("loadPlayerCenteredScores is deprecated, please use LoadPlayerCenteredScores instead.")]
-	public void loadPlayerCenteredScores(string leaderboardId, GPBoardTimeSpan span, GPCollectionType collection, int maxResults) {
-		LoadPlayerCenteredScores(leaderboardId, span, collection, maxResults);
-	}
+	
 
 	public void LoadPlayerCenteredScores(string leaderboardId, GPBoardTimeSpan span, GPCollectionType collection, int maxResults) {
 		if (!GooglePlayConnection.CheckState ()) { return; }
 		AN_GMSGeneralProxy.loadPlayerCenteredScores(leaderboardId, (int) span, (int) collection, maxResults);
 	}
-
-	[Obsolete("loadTopScores is deprecated, please use LoadTopScores instead.")]
-	public void loadTopScores(string leaderboardId, GPBoardTimeSpan span, GPCollectionType collection, int maxResults) {
-		LoadTopScores(leaderboardId, span, collection, maxResults);
-	}
+	
 
 	public void LoadTopScores(string leaderboardId, GPBoardTimeSpan span, GPCollectionType collection, int maxResults) {
 		if (!GooglePlayConnection.CheckState ()) { return; }
@@ -190,65 +169,57 @@ public class GooglePlayManager : SA_Singleton<GooglePlayManager> {
 
 
 	public void UnlockAchievement(string achievementName) {
+		if(AndroidNativeSettings.Instance.Is_Achievements_Editor_Notifications_Enabled)
+			SA_EditorNotifications.ShowNotification(achievementName, "Unlock Method Called", SA_EditorNotificationType.Achievement);
+
 		if (!GooglePlayConnection.CheckState ()) { return; }
 		AN_GMSGeneralProxy.reportAchievement (achievementName);
+
+
 	}
 	
 	public void UnlockAchievementById(string achievementId) {
+		if(AndroidNativeSettings.Instance.Is_Achievements_Editor_Notifications_Enabled)
+			SA_EditorNotifications.ShowNotification(achievementId, "Unlock Method Called", SA_EditorNotificationType.Achievement);
+
 		if (!GooglePlayConnection.CheckState ()) { return; }
 		AN_GMSGeneralProxy.reportAchievementById (achievementId);
 	}
 
-
-	[Obsolete("reportAchievement is deprecated, please use unlockAchievement instead.")]
-	public void reportAchievement(string achievementName) {
-		UnlockAchievement(achievementName);
-	}
-
-	[Obsolete("reportAchievementById is deprecated, please use unlockAchievementById instead.")]
-	public void reportAchievementById(string achievementId) {
-		UnlockAchievementById(achievementId);
-	}
-
-
-	[Obsolete("revealAchievement is deprecated, please use RevealAchievement instead.")]
-	public void revealAchievement(string achievementName)  {
-		RevealAchievement(achievementName);
-	}
+	
 
 	public void RevealAchievement(string achievementName) {
+		if(AndroidNativeSettings.Instance.Is_Achievements_Editor_Notifications_Enabled)
+			SA_EditorNotifications.ShowNotification(achievementName, "Reveal Method Called", SA_EditorNotificationType.Achievement);
+
 		if (!GooglePlayConnection.CheckState ()) { return; }
 		AN_GMSGeneralProxy.revealAchievement (achievementName);
 	}
 
-
-	[Obsolete("revealAchievementById is deprecated, please use RevealAchievementById instead.")]
-	public void revealAchievementById(string achievementId) {
-		RevealAchievementById(achievementId);
-	}
+	
 
 	public void RevealAchievementById(string achievementId) {
+		if(AndroidNativeSettings.Instance.Is_Achievements_Editor_Notifications_Enabled)
+			SA_EditorNotifications.ShowNotification(achievementId, "Reveal Method Called", SA_EditorNotificationType.Achievement);
+
 		if (!GooglePlayConnection.CheckState ()) { return; }
 		AN_GMSGeneralProxy.revealAchievementById (achievementId);
 	}
-
-	[Obsolete("incrementAchievement is deprecated, please use IncrementAchievement instead.")]
-	public void incrementAchievement(string achievementName, int numsteps) {
-		IncrementAchievement(achievementName, numsteps);
-	}
+	
 
 
 	public void IncrementAchievement(string achievementName, int numsteps) {
+		if(AndroidNativeSettings.Instance.Is_Achievements_Editor_Notifications_Enabled)
+			SA_EditorNotifications.ShowNotification(achievementName, "Incremented " + numsteps + " Steps", SA_EditorNotificationType.Achievement);
+
 		if (!GooglePlayConnection.CheckState ()) { return; }
 		AN_GMSGeneralProxy.incrementAchievement (achievementName, numsteps.ToString());
 	}
-
-	[Obsolete("incrementAchievementById is deprecated, please use IncrementAchievementById instead.")]
-	public void incrementAchievementById(string achievementId, int numsteps) {
-		IncrementAchievementById(achievementId, numsteps);
-	}
-
+	
 	public void IncrementAchievementById(string achievementId, int numsteps) {
+		if(AndroidNativeSettings.Instance.Is_Achievements_Editor_Notifications_Enabled)
+			SA_EditorNotifications.ShowNotification(achievementId, "Incremented " + numsteps + " Steps", SA_EditorNotificationType.Achievement);
+
 		if (!GooglePlayConnection.CheckState ()) { return; }
 		AN_GMSGeneralProxy.incrementAchievementById (achievementId, numsteps.ToString());
 	}
@@ -257,21 +228,13 @@ public class GooglePlayManager : SA_Singleton<GooglePlayManager> {
 		if (!GooglePlayConnection.CheckState ()) { return; }
 		AN_GMSGeneralProxy.setStepsImmediate (achievementId, numsteps.ToString ());
 	}
-
-	[Obsolete("loadAchievements is deprecated, please use LoadAchievements instead.")]
-	public void loadAchievements() {
-		LoadAchievements();
-	}
+	
 
 	public void LoadAchievements() {
 		if (!GooglePlayConnection.CheckState ()) { return; }
 		AN_GMSGeneralProxy.loadAchievements ();
 	}
-
-	[Obsolete("resetAchievement is deprecated, please use ResetAchievement instead.")]
-	public void resetAchievement(string achievementId) {
-		ResetAchievement(achievementId);
-	}
+	
 
 	public void ResetAchievement(string achievementId) {
 		if (!GooglePlayConnection.CheckState ()) { return; }
@@ -285,11 +248,7 @@ public class GooglePlayManager : SA_Singleton<GooglePlayManager> {
 		
 	}
 
-
-	[Obsolete("resetLeaderBoard is deprecated, please use ResetLeaderBoard instead.")]
-	public void resetLeaderBoard(string leaderboardId) {
-		ResetLeaderBoard(leaderboardId);
-	}
+	
 
 	public void ResetLeaderBoard(string leaderboardId) {
 		if (!GooglePlayConnection.CheckState ()) { return; }
@@ -302,16 +261,7 @@ public class GooglePlayManager : SA_Singleton<GooglePlayManager> {
 			}
 		}
 	}
-
-	[Obsolete("loadConnectedPlayers is deprecated, please use LoadFriends instead.")]
-	public void loadConnectedPlayers() {
-		LoadFriends();
-	}
-
-	[Obsolete("LoadConnectedPlayers is deprecated, please use LoadFriends instead.")]
-	public void LoadConnectedPlayers() {
-		LoadFriends();
-	}
+	
 
 	public void LoadFriends() {
 		if (!GooglePlayConnection.CheckState ()) { return; }
@@ -433,27 +383,13 @@ public class GooglePlayManager : SA_Singleton<GooglePlayManager> {
 			return _players;
 		}
 	}
-	
-	[System.Obsolete("leaderBoards is deprectaed, please use LeaderBoards instead")]
-	public List<GPLeaderBoard> leaderBoards {
-		get {
-			return LeaderBoards;
-		}
-	}
 
 	public List<GPLeaderBoard> LeaderBoards {
 		get {
 			return AndroidNativeSettings.Instance.Leaderboards;
 		}
 	}
-
-	[System.Obsolete("achievements is deprectaed, please use Achievements instead")]
-	public List<GPAchievement> achievements {
-		get {
-			return Achievements;
-		}
-	}
-
+	
 	public List<GPAchievement> Achievements {
 		get {
 			return AndroidNativeSettings.Instance.Achievements;

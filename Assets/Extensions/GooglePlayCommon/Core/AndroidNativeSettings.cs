@@ -17,8 +17,8 @@ using UnityEditor;
 
 public class AndroidNativeSettings : ScriptableObject {
 
-	public const string VERSION_NUMBER = "7.3.1";
-	public const string GOOGLE_PLAY_SDK_VERSION_NUMBER = "8298000";
+	public const string VERSION_NUMBER = "7.6";
+	public const string GOOGLE_PLAY_SDK_VERSION_NUMBER = "8487000";
 
 
 	public bool EnablePlusAPI 		= true;
@@ -60,8 +60,22 @@ public class AndroidNativeSettings : ScriptableObject {
 	public string SoomlaGameKey = "" ;
 	public string SoomlaEnvKey = "" ;
 
-	
 
+	//Google AdMob Editor Testing
+	public int Ad_EditorFillRateIndex = 4;
+	public int Ad_EditorFillRate = 100;
+	public bool Is_Ad_EditorTestingEnabled = true;
+
+
+	//Inn Apps Editor Testing
+	public int InApps_EditorFillRateIndex = 4;
+	public int InApps_EditorFillRate = 100;
+	public bool Is_InApps_EditorTestingEnabled = true;
+
+
+	//Notifications Editor Testing
+	public bool Is_Leaderboards_Editor_Notifications_Enabled = true;
+	public bool Is_Achievements_Editor_Notifications_Enabled = true;
 
 
 	//Google Push
@@ -154,17 +168,18 @@ public class AndroidNativeSettings : ScriptableObject {
 	public Texture2D LocalNotificationSmallIcon = null;
 	public Texture2D LocalNotificationLargeIcon = null;
 	public AudioClip LocalNotificationSound = null;
+	public int LocalNotificationWakeLockTimer = 10000;
 
 	public bool ReplaceOldNotificationWithNew = false;
 	public bool ShowPushWhenAppIsForeground = true;
 	public bool EnableVibrationPush = false;
 
+	public Color PushNotificationColor = Color.white;
 	public Texture2D PushNotificationSmallIcon = null;
 	public Texture2D PushNotificationLargeIcon = null;
 	public AudioClip PushNotificationSound = null;
 
 	public const string ANSettingsAssetName = "AndroidNativeSettings";
-	public const string ANSettingsPath = "Extensions/AndroidNative/Resources";
 	public const string ANSettingsAssetExtension = ".asset";
 
 	private static AndroidNativeSettings instance = null;
@@ -183,7 +198,7 @@ public class AndroidNativeSettings : ScriptableObject {
 					#if UNITY_EDITOR
 					//string properPath = Path.Combine(Application.dataPath, ANSettingsPath);
 
-					FileStaticAPI.CreateFolder(ANSettingsPath);
+					SA_FileStaticAPI.CreateFolder(SA_Config.SettingsPath);
 
 					/*
 					if (!Directory.Exists(properPath)) {
@@ -192,7 +207,7 @@ public class AndroidNativeSettings : ScriptableObject {
 					}
 					*/
 					
-					string fullPath = Path.Combine(Path.Combine("Assets", ANSettingsPath),
+					string fullPath = Path.Combine(Path.Combine("Assets", SA_Config.SettingsPath),
 					                               ANSettingsAssetName + ANSettingsAssetExtension
 					                               );
 					
@@ -207,7 +222,7 @@ public class AndroidNativeSettings : ScriptableObject {
 
 	public bool IsBase64KeyWasReplaced {
 		get {
-			if(base64EncodedPublicKey.Equals("REPLACE_WITH_YOUR_PUBLIC_KEY")) {
+			if(base64EncodedPublicKey.Equals("REPLACE_WITH_YOUR_PUBLIC_KEY") || (base64EncodedPublicKey.Equals(""))) {
 				return false;
 			} else {
 				return true;

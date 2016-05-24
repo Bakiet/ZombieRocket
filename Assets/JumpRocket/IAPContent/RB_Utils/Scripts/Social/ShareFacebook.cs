@@ -51,9 +51,9 @@ public class ShareFacebook : MonoBehaviour {
 				
 				shareImage = screenShot;
 
-				SPFacebook.Instance.PostWithAuthCheck (
+				SPFacebook.Instance.FeedShare (
 					link: appLink,
-					linkName: "Rocket Phew Sidereal Guardians",
+					linkName: "Pore Phew Sidereal Guardians",
 					linkCaption: "How far will you get?",
 					linkDescription: messageFormated,
 					picture: "http://yourweb.picture.png"

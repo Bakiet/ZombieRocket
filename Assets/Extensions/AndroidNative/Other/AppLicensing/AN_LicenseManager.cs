@@ -28,7 +28,10 @@ public class AN_LicenseManager : SA_Singleton<AN_LicenseManager> {
 	}
 
 	private void OnLicenseRequestRes(string data) {
-		AN_LicenseRequestResult result = (AN_LicenseRequestResult)Enum.Parse (typeof(AN_LicenseRequestResult), data);
+		Debug.Log("[OnLicenseRequestResult] Data: " + data);
+		string[] rawData = data.Split(new string[] {"|"}, StringSplitOptions.None);
+		AN_LicenseRequestResult result = new AN_LicenseRequestResult((AN_LicenseStatusCode)Enum.Parse (typeof(AN_LicenseStatusCode), rawData[0]),
+		                                                             (AN_LicenseErrorCode)Enum.Parse (typeof(AN_LicenseErrorCode), rawData[1]));
 		OnLicenseRequestResult (result);
 	}
 }

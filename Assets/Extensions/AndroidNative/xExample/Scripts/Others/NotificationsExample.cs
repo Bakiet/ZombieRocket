@@ -27,7 +27,31 @@ public class NotificationsExample : MonoBehaviour {
 
 		GoogleCloudMessageService.ActionCMDRegistrationResult += HandleActionCMDRegistrationResult;
 		GoogleCloudMessageService.ActionCouldMessageLoaded += OnMessageLoaded;
+		GoogleCloudMessageService.ActionGCMPushLaunched += HandleActionGCMPushLaunched;
+		GoogleCloudMessageService.ActionGCMPushReceived += HandleActionGCMPushReceived;
 		GoogleCloudMessageService.Instance.Init();
+	}
+
+	void HandleActionGCMPushReceived (string message, Dictionary<string, object> data)
+	{
+		Debug.Log("[HandleActionGCMPushReceived]");
+		Debug.Log("Message: " + message);
+		foreach (KeyValuePair<string, object> pair in data) {
+			Debug.Log("Data Entity: " + pair.Key + " " + pair.Value.ToString());
+		}
+
+		AN_PoupsProxy.showMessage (message, ANMiniJSON.Json.Serialize(data));
+	}
+
+	void HandleActionGCMPushLaunched (string message, Dictionary<string, object> data)
+	{
+		Debug.Log("[HandleActionGCMPushLaunched]");
+		Debug.Log("Message: " + message);
+		foreach (KeyValuePair<string, object> pair in data) {
+			Debug.Log("Data Entity: " + pair.Key + " " + pair.Value.ToString());
+		}
+
+		AN_PoupsProxy.showMessage (message, ANMiniJSON.Json.Serialize(data));
 	}
 
 	//--------------------------------------

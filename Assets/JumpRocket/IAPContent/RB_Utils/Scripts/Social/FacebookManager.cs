@@ -60,11 +60,11 @@ public class FacebookManager : MonoBehaviour {
 		if (!inited)
 		{			
 			inited = true;
-			SPFacebook.Instance.OnInitCompleteAction += OnInit;
+			SPFacebook.OnInitCompleteAction += OnInit;
 			//SPFacebook.Instance.OnAuthCompleteAction += OnAuth;
 			
 			
-			SPFacebook.Instance.OnPostingCompleteAction += OnPost;
+			SPFacebook.OnPostingCompleteAction += OnPost;
 			
 			SPFacebook.Instance.Init();
 		}else
@@ -99,7 +99,7 @@ public class FacebookManager : MonoBehaviour {
 	}
 
 #if USE_IAP
-    void OnAuth(FBResult result)
+    void OnAuth(FB_Result result)
 	{
 		print ("BLOCKS>" + "User logged in");
 		logged = true;
@@ -107,37 +107,37 @@ public class FacebookManager : MonoBehaviour {
 
 
 
-    void OnAuthFailed(FBResult result)
+    void OnAuthFailed(FB_Result result)
 	{
 		print ("BLOCKS>" + "User logged in failed");
 	}
 
-	void OnUserDataLoaded(FBResult result)
+	void OnUserDataLoaded(FB_Result result)
 	{
 
 	}
 
-	void OnUserDataLoadFailed(FBResult result)
-	{
-		
-	}
-
-	void OnFriendsDataLoaded(FBResult result)
+	void OnUserDataLoadFailed(FB_Result result)
 	{
 		
 	}
 
-	void OnFriendDataLoadFailed(FBResult result)
+	void OnFriendsDataLoaded(FB_Result result)
 	{
 		
 	}
 
-	void OnPostFailed(FBResult result)
+	void OnFriendDataLoadFailed(FB_Result result)
 	{
 		
 	}
 
-	void OnPost(FBPostResult result)
+	void OnPostFailed(FB_Result result)
+	{
+		
+	}
+
+	void OnPost(FB_PostResult result)
 	{
         if (result.IsSucceeded)
         {
@@ -145,12 +145,12 @@ public class FacebookManager : MonoBehaviour {
         }
         else
         {
-            Debug.Log("Post Error: " + result.Result.Error);
+			//Debug.Log("Post Error: " + result.FB_PostResult.Error);
         }
         
 	}
 
-	void OnFocusChanged(FBResult result)
+	void OnFocusChanged(FB_Result result)
 	{
 		
 	}

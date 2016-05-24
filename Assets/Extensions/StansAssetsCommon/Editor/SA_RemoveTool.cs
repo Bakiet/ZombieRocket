@@ -12,7 +12,7 @@ public class SA_RemoveTool  {
 		RemoveNativeFileIOS("libOneSignal");
 		RemoveNativeFileIOS("OneSignal");
 		RemoveNativeFileIOS("OneSignalUnityRuntime");
-		FileStaticAPI.DeleteFolder("StansAssetsCommon/OneSignal");
+		SA_FileStaticAPI.DeleteFolder("StansAssetsCommon/OneSignal");
 	}
 	
 	
@@ -43,32 +43,30 @@ public class SA_RemoveTool  {
 	
 	
 	private static void ProcessRemove() {
-		FileStaticAPI.DeleteFolder ("Extensions/AllDocumentation");
-		FileStaticAPI.DeleteFolder ("Extensions/FlashLikeEvents");
-		FileStaticAPI.DeleteFolder ("Extensions/AndroidManifestManager");
-		FileStaticAPI.DeleteFolder ("Extensions/GooglePlayCommon");
-		FileStaticAPI.DeleteFolder ("Extensions/StansAssetsCommon");
-		FileStaticAPI.DeleteFolder ("Extensions/StansAssetsPreviewUI");
-		FileStaticAPI.DeleteFolder ("Extensions/IOSDeploy");
-		FileStaticAPI.DeleteFolder ("Facebook");
-		
-		
+		SA_FileStaticAPI.DeleteFolder ("Extensions/AllDocumentation");
+		SA_FileStaticAPI.DeleteFolder ("Extensions/FlashLikeEvents");
+		SA_FileStaticAPI.DeleteFolder ("Extensions/AndroidManifestManager");
+		SA_FileStaticAPI.DeleteFolder ("Extensions/GooglePlayCommon");
+		SA_FileStaticAPI.DeleteFolder ("Extensions/StansAssetsCommon");
+		SA_FileStaticAPI.DeleteFolder ("Extensions/StansAssetsPreviewUI");
+		SA_FileStaticAPI.DeleteFolder ("Extensions/IOSDeploy");
+
 		
 		if (SA_VersionsManager.Is_AN_Installed) {
-			FileStaticAPI.DeleteFolder ("Extensions/AndroidNative");
+			SA_FileStaticAPI.DeleteFolder ("Extensions/AndroidNative");
 			RemoveAndroidPart();	
 		}
 		
 		
 		if (SA_VersionsManager.Is_MSP_Installed){
-			FileStaticAPI.DeleteFolder ("Extensions/MobileSocialPlugin");
+			SA_FileStaticAPI.DeleteFolder ("Extensions/MobileSocialPlugin");
 			RemoveIOSPart();
 			RemoveAndroidPart();
 		}
 		
 		
 		if (SA_VersionsManager.Is_GMA_Installed){
-			FileStaticAPI.DeleteFolder ("Extensions/GoogleMobileAd");
+			SA_FileStaticAPI.DeleteFolder ("Extensions/GoogleMobileAd");
 			RemoveIOSPart();
 			RemoveAndroidPart();
 			RemoveWP8Part();
@@ -77,17 +75,17 @@ public class SA_RemoveTool  {
 		
 		
 		if (SA_VersionsManager.Is_ISN_Installed){
-			FileStaticAPI.DeleteFolder("Extensions/IOSNative");
+			SA_FileStaticAPI.DeleteFolder("Extensions/IOSNative");
 			RemoveIOSPart();
 		}
 		
 		
 		if (SA_VersionsManager.Is_UM_Installed){
-			FileStaticAPI.DeleteFolder("Extensions/UltimateMobile");
-			FileStaticAPI.DeleteFolder("Extensions/WP8Native");
-			FileStaticAPI.DeleteFolder("WebPlayerTemplates");
-			FileStaticAPI.DeleteFolder("Extensions/GoogleAnalytics");
-			FileStaticAPI.DeleteFolder("Extensions/MobileNativePopUps");
+			SA_FileStaticAPI.DeleteFolder("Extensions/UltimateMobile");
+			SA_FileStaticAPI.DeleteFolder("Extensions/WP8Native");
+			SA_FileStaticAPI.DeleteFolder("WebPlayerTemplates");
+			SA_FileStaticAPI.DeleteFolder("Extensions/GoogleAnalytics");
+			SA_FileStaticAPI.DeleteFolder("Extensions/MobileNativePopUps");
 			
 			RemoveWP8Part();
 			RemoveIOSPart();
@@ -95,7 +93,7 @@ public class SA_RemoveTool  {
 		}
 		
 		
-		FileStaticAPI.DeleteFolder ("Plugins/StansAssets");
+		SA_FileStaticAPI.DeleteFolder ("Plugins/StansAssets");
 		AssetDatabase.Refresh();
 		
 		
@@ -107,32 +105,23 @@ public class SA_RemoveTool  {
 	
 	
 	private static void RemoveAndroidPart() {
-		FileStaticAPI.DeleteFile(PluginsInstalationUtil.ANDROID_DESTANATION_PATH + "androidnative.jar");
-		FileStaticAPI.DeleteFile(PluginsInstalationUtil.ANDROID_DESTANATION_PATH + "mobilenativepopups.jar");
-		
-		
-		FileStaticAPI.DeleteFolder (PluginsInstalationUtil.ANDROID_DESTANATION_PATH + "facebook");
-		FileStaticAPI.DeleteFolder (PluginsInstalationUtil.ANDROID_DESTANATION_PATH + "libs");
-		
-		/*
-		FileStaticAPI.DeleteFile ("Plugins/Android/res/values/analytics.xml");
-		FileStaticAPI.DeleteFile ("Plugins/Android/res/values/ids.xml");
-		FileStaticAPI.DeleteFile ("Plugins/Android/res/values/version.xml");
-		FileStaticAPI.DeleteFile ("Plugins/Android/res/xml/file_paths.xml");
-		*/
+		SA_FileStaticAPI.DeleteFile(PluginsInstalationUtil.ANDROID_DESTANATION_PATH + "androidnative.jar");
+		SA_FileStaticAPI.DeleteFile(PluginsInstalationUtil.ANDROID_DESTANATION_PATH + "mobilenativepopups.jar");
+
+		SA_FileStaticAPI.DeleteFolder (PluginsInstalationUtil.ANDROID_DESTANATION_PATH + "libs");
 	}
 	
 	
 	private static void RemoveWP8Part() {
-		FileStaticAPI.DeleteFile ("Plugins/WP8/GoogleAds.dll");
-		FileStaticAPI.DeleteFile ("Plugins/WP8/GoogleAds.xml");
-		FileStaticAPI.DeleteFile ("Plugins/WP8/MockIAPLib.dll");
-		FileStaticAPI.DeleteFile ("Plugins/WP8/WP8Native.dll");
-		FileStaticAPI.DeleteFile ("Plugins/WP8/WP8PopUps.dll");
-		FileStaticAPI.DeleteFile ("Plugins/WP8/GoogleAdsWP8.dll");
-		FileStaticAPI.DeleteFile ("Plugins/GoogleAdsWP8.dll");
-		FileStaticAPI.DeleteFile ("Plugins/Metro/WP8Native.dll");
-		FileStaticAPI.DeleteFile ("Plugins/Metro/WP8PopUps.dll");
+		SA_FileStaticAPI.DeleteFile ("Plugins/WP8/GoogleAds.dll");
+		SA_FileStaticAPI.DeleteFile ("Plugins/WP8/GoogleAds.xml");
+		SA_FileStaticAPI.DeleteFile ("Plugins/WP8/MockIAPLib.dll");
+		SA_FileStaticAPI.DeleteFile ("Plugins/WP8/WP8Native.dll");
+		SA_FileStaticAPI.DeleteFile ("Plugins/WP8/WP8PopUps.dll");
+		SA_FileStaticAPI.DeleteFile ("Plugins/WP8/GoogleAdsWP8.dll");
+		SA_FileStaticAPI.DeleteFile ("Plugins/GoogleAdsWP8.dll");
+		SA_FileStaticAPI.DeleteFile ("Plugins/Metro/WP8Native.dll");
+		SA_FileStaticAPI.DeleteFile ("Plugins/Metro/WP8PopUps.dll");
 	}
 	
 	
@@ -195,11 +184,11 @@ public class SA_RemoveTool  {
 	private static void RemoveNativeFileIOS(string filename) {
 		string filePath = PluginsInstalationUtil.IOS_DESTANATION_PATH  + filename;
 		
-		FileStaticAPI.DeleteFile (filePath + ".h");
-		FileStaticAPI.DeleteFile (filePath + ".m");
-		FileStaticAPI.DeleteFile (filePath + ".mm");
-		FileStaticAPI.DeleteFile (filePath + ".a");
-		FileStaticAPI.DeleteFile (filePath + ".txt");
+		SA_FileStaticAPI.DeleteFile (filePath + ".h");
+		SA_FileStaticAPI.DeleteFile (filePath + ".m");
+		SA_FileStaticAPI.DeleteFile (filePath + ".mm");
+		SA_FileStaticAPI.DeleteFile (filePath + ".a");
+		SA_FileStaticAPI.DeleteFile (filePath + ".txt");
 		
 	}
 	

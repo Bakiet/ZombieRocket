@@ -78,6 +78,62 @@ public class PlusButtonsAPIExample : MonoBehaviour {
 		AndroidMessage.Create("Click Detected", "Plus Button Click Detected");
 	}
 
+
+
+
+	private void SendInvitation() {
+		
+		GP_AppInviteBuilder builder =  new GP_AppInviteBuilder("Test Title");
+		builder.SetMessage("Test Message");
+		builder.SetDeepLink("http://testUrl");
+		builder.SetCallToActionText("Test Text");
+		
+		GP_AppInvitesController.ActionAppInvitesSent += HandleActionAppInvitesSent;
+		GP_AppInvitesController.Instance.StartInvitationDialog(builder);
+		
+	}
+	
+	void HandleActionAppInvitesSent (GP_SendAppInvitesResult res) {
+		if(res.IsSucceeded) {
+			Debug.Log("Invitation was sent to " + res.InvitationIds.Length + " people");
+			AN_PoupsProxy.showMessage ("Success", "Invitation was sent to " + res.InvitationIds.Length + " people");
+		} else {
+			Debug.Log("App invite failed" + res.Message);
+			AN_PoupsProxy.showMessage ("Fail", "App invite failed" + res.Message);
+		}
+		
+		GP_AppInvitesController.ActionAppInvitesSent -= HandleActionAppInvitesSent;
+	}
+	
+	
+	private void GetInvitation() {
+		GP_AppInvitesController.ActionAppInviteRetrieved += HandleActionAppInviteRetrieved;
+		GP_AppInvitesController.Instance.GetInvitation(true);
+	}
+	
+	void HandleActionAppInviteRetrieved (GP_RetrieveAppInviteResult res) {
+		GP_AppInvitesController.ActionAppInviteRetrieved -= HandleActionAppInviteRetrieved;
+
+		if(res.IsSucceeded) {
+			Debug.Log("Invitation Retrieved");
+			
+			GP_AppInvite invite = res.AppInvite;
+			Debug.Log("Invitation Id: " + invite.Id);
+			Debug.Log("Invitation Deep Link: " + invite.DeepLink);
+			Debug.Log("Is Opened From PlayStore: " + invite.IsOpenedFromPlayStore);
+		} else {
+			Debug.Log("No invitation data found");
+		}
+	}
+
+	private void AddNewFriends() {
+		Debug.Log("AddNewFriends");
+		AndroidNativeUtility.InvitePlusFriends();
+	}
+
+
+
+
 	void OnDestroy() {
 		HideButtons();
 		if(PlusButton != null) {

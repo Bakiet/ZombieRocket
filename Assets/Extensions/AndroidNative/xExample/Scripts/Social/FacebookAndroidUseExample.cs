@@ -283,14 +283,13 @@ public class FacebookAndroidUseExample : MonoBehaviour {
 	}
 	
 	
-//	private string UNION_ASSETS_PAGE_ID = "1435528379999137";
-	private string UNION_ASSETS_PAGE_ID = "578153135619004";
+	private string UNION_ASSETS_PAGE_ID = "1435528379999137";
 
 
 	public void CheckLike() {
 		
 		//checking if current user likes the page
-		
+		Debug.Log("[CheckLike]");
 
 		bool IsLikes = SPFacebook.instance.IsUserLikesPage(SPFacebook.instance.UserId, UNION_ASSETS_PAGE_ID);
 		if(IsLikes) {
@@ -311,7 +310,7 @@ public class FacebookAndroidUseExample : MonoBehaviour {
 	// --------------------------------------
 	
 	private void OnLikesLoaded(FB_Result result) {
-		
+		Debug.Log("[OnLikesLoaded] result " + result.RawData);
 		//The likes is loaded so now we can find out for sure if user is like our page
 		bool IsLikes = SPFacebook.Instance.IsUserLikesPage(SPFacebook.instance.UserId, UNION_ASSETS_PAGE_ID);
 		if(IsLikes) {

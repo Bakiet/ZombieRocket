@@ -6,7 +6,7 @@ public class OpenLeaderboards : MonoBehaviour {
 	public void Open()
 	{
 #if USE_IAP
-		GooglePlayManager.instance.showLeaderBoardsUI();
+		GooglePlayManager.Instance.ShowLeaderBoardsUI();
 #endif
 	}
 }

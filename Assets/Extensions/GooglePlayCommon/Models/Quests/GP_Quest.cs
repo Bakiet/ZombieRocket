@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class GP_Quest {
@@ -31,7 +31,7 @@ public class GP_Quest {
 		}
 		
 		
-		WWWTextureLoader loader = WWWTextureLoader.Create();
+		SA_WWWTextureLoader loader = SA_WWWTextureLoader.Create();
 		loader.OnLoad += OnIconLoaded;
 		loader.LoadTexture(IconImageUrl);
 	}
@@ -42,7 +42,7 @@ public class GP_Quest {
 		}
 		
 		
-		WWWTextureLoader loader = WWWTextureLoader.Create();
+		SA_WWWTextureLoader loader = SA_WWWTextureLoader.Create();
 		loader.OnLoad += OnBannerLoaded;
 		loader.LoadTexture(BannerImageUrl);
 	}

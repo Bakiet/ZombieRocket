@@ -85,7 +85,7 @@ public class SocialPlatfromSettingsEditor : Editor {
 
 		if(GUILayout.Button("Switch To IOS",  GUILayout.Width(130))) {
 
-			#if UNITY_3_5 || UNITY_4_0 || UNITY_4_0_1 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_5 || UNITY_4_6
+			#if UNITY_3_5 || UNITY_4_0 || UNITY_4_0_1 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7
 			EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTarget.iPhone);
 			#else
 			EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTarget.iOS);
@@ -521,7 +521,7 @@ public class SocialPlatfromSettingsEditor : Editor {
 	}
 
 	public static void ResetSettings() {
-		FileStaticAPI.DeleteFile("Extensions/GooglePlayCommon/Resources/SocialSettings.asset");
+		SA_FileStaticAPI.DeleteFile("Extensions/GooglePlayCommon/Resources/SocialSettings.asset");
 		SocialPlatfromSettings.Instance.ShowActions = true;
 		Selection.activeObject = SocialPlatfromSettings.Instance;
 	}
@@ -560,7 +560,7 @@ public class SocialPlatfromSettingsEditor : Editor {
 	}
 
 	public static void UpdateVersionInfo() {
-		FileStaticAPI.Write(SA_VersionsManager.MSP_VERSION_INFO_PATH, SocialPlatfromSettings.VERSION_NUMBER);
+		SA_FileStaticAPI.Write(SA_VersionsManager.MSP_VERSION_INFO_PATH, SocialPlatfromSettings.VERSION_NUMBER);
 		UpdateManifest();
 	}
 

@@ -146,7 +146,7 @@ public class FB_UserInfo {
 		}
 
 
-		WWWTextureLoader loader = WWWTextureLoader.Create();
+		SA_WWWTextureLoader loader = SA_WWWTextureLoader.Create();
 
 		switch(size) {
 		case FB_ProfileImageSize.large:

@@ -1,3 +1,44 @@
+7.6
+New Features:
+Multiple Imageses loading from Gallery
+New GetExternalStoragePublicDirectory API added to AndroidNativeUtility
+Wake Lock Indication for Local Notifications
+Google AdMob Rewarded Video Ads features
+
+Fixes:
+Low Quality Images loaded from Camera FIX
+Facebook GetUserLikes throws NullPointerException FIX
+Get Image From Camera issues FIX
+Native Android JAR-libraries code clean-up
+
+7.5
+New Features:
+Google Play Services update to 8487000 version
+Share with native Intent has the Callback Action Event!
+Push Notifications SetColor API, Editor Settings option added
+AndroidNatificationBuilder.SetColor API
+Steps field for Incremental Achievements
+NEW ResetAchievements Playmaker action
+Launch Push Notification click callback improvements
+
+Fixes:
+GP_Leaderboard GetCurrentPlayerScore return NULL FIX
+Saved Games Conflict detected callback FIX
+Saved Games via byte array FIX
+Twitter sharing with Native Intent FIX
+Facebook User ID equals string.Empty FIX
+Facebook Access Token equals string.Empty FIX
+New OneSignal SDK location FIX
+
+7.4:
+Updates:
+Turn-Based Multiplayer APIs update
+Compatibility update
+
+Fixes:
+Google Play Connection Freeze fix
+Turn-Based Multiplayer fixes
+
 7.3.1:
 Unity 4.7.0f1 compatibility update
 

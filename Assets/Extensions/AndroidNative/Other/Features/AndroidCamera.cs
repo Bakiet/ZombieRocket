@@ -5,9 +5,9 @@ using System.Collections;
 public class AndroidCamera : SA_Singleton<AndroidCamera>  {
 
 	//Actions
-	public Action<AndroidImagePickResult> OnImagePicked = delegate{};
-	public Action<GallerySaveResult> OnImageSaved = delegate{};
-
+	public event Action<AndroidImagePickResult> OnImagePicked = delegate{};
+	public event Action<AndroidImagesPickResult> OnImagesPicked = delegate {};
+	public event Action<GallerySaveResult> OnImageSaved = delegate{};
 
 	private static string _lastImageName = string.Empty;
 
@@ -50,7 +50,9 @@ public class AndroidCamera : SA_Singleton<AndroidCamera>  {
 		AndroidNative.GetImageFromGallery();
 	}
 	
-	
+	public void GetImagesFromGallery() {
+		AndroidNative.GetImagesFromGallery();
+	}
 	
 	public void GetImageFromCamera() {
 		AndroidNative.GetImageFromCamera(AndroidNativeSettings.Instance.SaveCameraImageToGallery);
@@ -70,6 +72,17 @@ public class AndroidCamera : SA_Singleton<AndroidCamera>  {
 
 		OnImagePicked(result);
 
+	}
+
+	private void ImagesPickedCallback (string data) {
+		Debug.Log("[OnImagesPickedEvent]");
+
+		string[] rawData = data.Split(new string[] {AndroidNative.DATA_SPLITTER2}, StringSplitOptions.None);
+		string codeString = rawData[0];
+		string imagesData = rawData[1];
+
+		AndroidImagesPickResult result = new AndroidImagesPickResult(codeString, imagesData);
+		OnImagesPicked(result);
 	}
 
 	private void OnImageSavedEvent(string data) {

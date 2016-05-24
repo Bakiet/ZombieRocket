@@ -99,7 +99,14 @@ public class GooglePlaySavedGamesManager :  SA_Singleton<GooglePlaySavedGamesMan
 
 
 	private static string GetString(byte[] bytes) {
-		char[] chars = new char[bytes.Length / sizeof(char)];
+		char[] chars;
+		if (bytes.Length % 2 != 0) {
+			chars = new char[(bytes.Length / sizeof(char)) + 1];
+		}
+		else {
+			chars = new char[bytes.Length / sizeof(char)];
+		}
+
 		System.Buffer.BlockCopy(bytes, 0, chars, 0, bytes.Length);
 		return new string(chars);
 	}

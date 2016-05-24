@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEditor;
 using System;
 using System.Collections;
@@ -29,7 +29,7 @@ public static class SA_VersionsManager  {
 	
 	public static bool Is_AN_Installed {
 		get { 
-			return FileStaticAPI.IsFileExists(AN_VERSION_INFO_PATH);
+			return SA_FileStaticAPI.IsFileExists(AN_VERSION_INFO_PATH);
 		}
 	}
 
@@ -59,7 +59,7 @@ public static class SA_VersionsManager  {
 
 	public static bool Is_MSP_Installed {
 		get {
-			return FileStaticAPI.IsFileExists(MSP_VERSION_INFO_PATH);
+			return SA_FileStaticAPI.IsFileExists(MSP_VERSION_INFO_PATH);
 		}
 	}
 
@@ -89,7 +89,7 @@ public static class SA_VersionsManager  {
 	 
 	public static bool Is_UM_Installed {
 		get {
-			return FileStaticAPI.IsFileExists(UM_VERSION_INFO_PATH);
+			return SA_FileStaticAPI.IsFileExists(UM_VERSION_INFO_PATH);
 		} 
 	}
 	
@@ -118,7 +118,7 @@ public static class SA_VersionsManager  {
 
 	public static bool Is_GMA_Installed {
 		get {
-			return FileStaticAPI.IsFileExists(GMA_VERSION_INFO_PATH);
+			return SA_FileStaticAPI.IsFileExists(GMA_VERSION_INFO_PATH);
 		} 
 	}
 	
@@ -144,7 +144,7 @@ public static class SA_VersionsManager  {
 	//--------------------------------------
 	public static bool Is_MNP_Installed {
 		get {
-			return FileStaticAPI.IsFileExists(MNP_VERSION_INFO_PATH);
+			return SA_FileStaticAPI.IsFileExists(MNP_VERSION_INFO_PATH);
 		} 
 	}
 	
@@ -172,7 +172,7 @@ public static class SA_VersionsManager  {
 
 	public static bool Is_ISN_Installed {
 		get {
-			return FileStaticAPI.IsFileExists(ISN_VERSION_INFO_PATH);
+			return SA_FileStaticAPI.IsFileExists(ISN_VERSION_INFO_PATH);
 		} 
 	}
 	
@@ -208,7 +208,7 @@ public static class SA_VersionsManager  {
 
 	
 	private static int GetMagorVersionCode(string versionFilePath) {
-		string stringVersionId = FileStaticAPI.Read (versionFilePath);
+		string stringVersionId = SA_FileStaticAPI.Read (versionFilePath);
 		return ParceMagorVersion(stringVersionId);
 	}
 
@@ -223,15 +223,15 @@ public static class SA_VersionsManager  {
 
 
 	private static int GetVersionCode(string versionFilePath) {
-		string stringVersionId = FileStaticAPI.Read (versionFilePath);
+		string stringVersionId = SA_FileStaticAPI.Read (versionFilePath);
 		return ParceVersion(stringVersionId);
 	}
 
 
 
 	private static string GetStringVersionId(string versionFilePath) {
-		if(FileStaticAPI.IsFileExists(versionFilePath)) {
-			return FileStaticAPI.Read (versionFilePath);
+		if(SA_FileStaticAPI.IsFileExists(versionFilePath)) {
+			return SA_FileStaticAPI.Read (versionFilePath);
 		} else {
 			return "0.0";
 		}

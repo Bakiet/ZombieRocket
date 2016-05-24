@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEditor;
 using System.Collections;
 
@@ -12,6 +12,34 @@ public class SA_EditorTool {
 
 	static	string  EscapeURL (string url){
 		return WWW.EscapeURL(url).Replace("+","%20");
+	}
+
+	private static Texture2D _SALogo = null;
+	
+	public static Texture2D SALogo {
+		get {
+			if(_SALogo == null) {
+				if(EditorGUIUtility.isProSkin) {
+					_SALogo =  Resources.Load("sa_logo_small") as Texture2D;
+				} else {
+					_SALogo =  Resources.Load("sa_logo_small_light") as Texture2D;
+				}
+			} 
+			
+			return _SALogo;
+		}
+	}
+	
+	
+	public static void DrawSALogo() {
+		
+		GUIStyle s =  new GUIStyle();
+		GUIContent content =  new GUIContent(SALogo, "Visit site");
+		
+		bool click = GUILayout.Button(content, s);
+		if(click) {
+			Application.OpenURL("https://stansassets.com/");
+		}
 	}
 
 	public static bool ToggleFiled(string title, bool value) {
@@ -77,8 +105,8 @@ public class SA_EditorTool {
 
 
 	public static void ChnageDefineState(string file, string tag, bool IsEnabled) {
-		if(FileStaticAPI.IsFileExists(file)) {
-			string content = FileStaticAPI.Read(file);
+		if(SA_FileStaticAPI.IsFileExists(file)) {
+			string content = SA_FileStaticAPI.Read(file);
 			//	Debug.Log(file);
 			//Debug.Log(content);
 			
@@ -96,7 +124,7 @@ public class SA_EditorTool {
 			}
 			//		Debug.Log(content);
 			
-			FileStaticAPI.Write(file, content);
+			SA_FileStaticAPI.Write(file, content);
 		}		
 	}
 

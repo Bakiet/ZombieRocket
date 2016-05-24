@@ -37,11 +37,7 @@ public class AndroidNativeUtility : SA_Singleton<AndroidNativeUtility> {
 	public void CheckIsPackageInstalled(string packageName) {
 		AndroidNative.isPackageInstalled(packageName);
 	}
-
-	[System.Obsolete("")]
-	public void RunPackage(string packageName) {
-		StartApplication(packageName);
-	}
+	
 
 	public void StartApplication(string bundle) {
 		AndroidNative.runPackage(bundle);
@@ -70,6 +66,10 @@ public class AndroidNativeUtility : SA_Singleton<AndroidNativeUtility> {
 	
 	public void GetExternalStoragePath() {
 		AndroidNative.GetExternalStoragePath();
+	}
+
+	public string GetExternalStoragePublicDirectory(AN_ExternalStorageType type) {
+		return AndroidNative.GetExternalStoragePublicDirectory(type.ToString());
 	}
 
 	public void LoadLocaleInfo() {
@@ -109,6 +109,10 @@ public class AndroidNativeUtility : SA_Singleton<AndroidNativeUtility> {
 	}
 
 
+	public static void RedirectToGooglePlayRatingPage(string url) {
+		OpenAppRatingPage(url);
+	}
+
 
 	public static void HideCurrentPopup() {
 		AN_PoupsProxy.HideCurrentPopup();
@@ -128,6 +132,10 @@ public class AndroidNativeUtility : SA_Singleton<AndroidNativeUtility> {
 		}
 	}
 
+
+	public static void InvitePlusFriends() {
+		AndroidNative.InvitePlusFriends();
+	}
 
 	
 

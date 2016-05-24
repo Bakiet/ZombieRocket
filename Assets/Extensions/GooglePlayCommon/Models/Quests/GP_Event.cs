@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class GP_Event {
@@ -23,7 +23,7 @@ public class GP_Event {
 		}
 
 		
-		WWWTextureLoader loader = WWWTextureLoader.Create();
+		SA_WWWTextureLoader loader = SA_WWWTextureLoader.Create();
 		loader.OnLoad += OnTextureLoaded;
 		loader.LoadTexture(IconImageUrl);
 	}

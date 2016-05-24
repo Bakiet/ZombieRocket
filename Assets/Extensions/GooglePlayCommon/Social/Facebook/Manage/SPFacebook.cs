@@ -742,53 +742,6 @@ public class SPFacebook : SA_Singleton<SPFacebook> {
 	//--------------------------------------
 	//  EVENTS
 	//--------------------------------------
-
-	/*
-	private void PermissionCallback(FBResult result)
-	{
-		FB_PermissionResult res = new FB_PermissionResult(result);
-		
-		if (!String.IsNullOrEmpty(result.Error))
-		{
-			Debug.Log("Error Response:\n" + result.Error);
-		}
-		else
-		{
-			Debug.Log("Get user's permissions was successful!");
-
-			var permissionDict = Facebook.MiniJSON.Json.Deserialize(result.Text) as Dictionary<string, object>;
-			IDictionary persmissionData = permissionDict;
-			Dictionary<string, FBPermission> permissions = new Dictionary<string, FBPermission>();
-			foreach(IDictionary perm in (List<object>)persmissionData["data"])
-			{
-				FBPermission permission = new FBPermission((string)perm["permission"],
-				                                           ((string)perm["status"]).Equals("granted") ? FBPermissionStatus.Granted : FBPermissionStatus.Declined);
-				permissions.Add (permission.Name, permission);
-			}
-			res.SetPermissions(permissions);
-		}
-		
-		OnPermissionsLoaded(res);
-	}
-	
-	private void RemovePermissionCallback(FBResult result)
-	{
-		FB_Result res = new FB_Result(result);
-		
-		if (!String.IsNullOrEmpty(result.Error))
-		{
-			Debug.Log("Error Response:\n" + result.Error);
-		}
-		else
-		{
-			Debug.Log("RemovePermissionCallback was successful!");
-			Debug.Log ("Result: "+result.Text);
-		}
-		
-		OnRevokePermission(res);
-	}
-
-*/
 	
 	private void OnUserLikesResult(FB_Result result, FB_LikesRetrieveTask task) {
 		
@@ -814,10 +767,10 @@ public class SPFacebook : SA_Singleton<SPFacebook> {
 		foreach(object row in data) {
 			Dictionary<string, object> dataRow = row as Dictionary<string, object>;
 			
-			FB_LikeInfo tpl =  new FB_LikeInfo();
-			tpl.Id 			= System.Convert.ToString(dataRow["id"]);
-			tpl.Name 		= System.Convert.ToString(dataRow["name"]);
-			tpl.Category 	= System.Convert.ToString(dataRow["category"]);
+			FB_LikeInfo tpl 	=  new FB_LikeInfo();
+			tpl.Id 				= System.Convert.ToString(dataRow["id"]);
+			tpl.Name 			= System.Convert.ToString(dataRow["name"]);
+			tpl.CreatedTime 	= System.Convert.ToString(dataRow["created_time"]);
 			
 			if(userLikes.ContainsKey(tpl.Id)) {
 				userLikes[tpl.Id] = tpl;

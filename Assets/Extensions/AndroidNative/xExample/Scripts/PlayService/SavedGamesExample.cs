@@ -266,10 +266,11 @@ public class SavedGamesExample : MonoBehaviour {
 
 
 		GooglePlaySavedGamesManager.ActionGameSaveResult += ActionGameSaveResult;
-		GooglePlaySavedGamesManager.instance.CreateNewSnapshot(currentSaveName, description, Screenshot, "some save data, for example you can use JSON or byte array", TotalPlayedTime);
-		
-		
-		
+		GooglePlaySavedGamesManager.instance.CreateNewSnapshot(currentSaveName,
+		                                                       description,
+		                                                       Screenshot,
+		                                                       "some save data, for example you can use JSON or byte array " + Random.Range(1, 10000).ToString(),
+		                                                       TotalPlayedTime);		
 		Destroy(Screenshot);
 	}
 

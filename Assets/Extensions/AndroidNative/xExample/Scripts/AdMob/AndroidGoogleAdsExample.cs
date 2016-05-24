@@ -18,15 +18,16 @@ public class AndroidGoogleAdsExample : MonoBehaviour {
 	//replace with your ids
 	private const string MY_BANNERS_AD_UNIT_ID		 = "ca-app-pub-6101605888755494/1824764765"; 
 	private const string MY_INTERSTISIALS_AD_UNIT_ID =  "ca-app-pub-6101605888755494/3301497967"; 
-
+	private const string MY_REWARDED_VIDEO_AD_UNIT_ID =  "ca-app-pub-6101605888755494/4996523169";
 	
 	private GoogleMobileAdBanner banner1;
 	private GoogleMobileAdBanner banner2;
 
 	private bool IsInterstisialsAdReady = false;
-
+	private bool IsRewardedVideoAdReady = false;
 
 	public DefaultPreviewButton ShowIntersButton;
+	public DefaultPreviewButton ShowRewardedVideoButton;
 
 	public DefaultPreviewButton[] b1CreateButtons;
 	public DefaultPreviewButton b1Hide;
@@ -53,69 +54,82 @@ public class AndroidGoogleAdsExample : MonoBehaviour {
 
 	void Start() {
 
-		AndroidAdMobController.instance.Init(MY_BANNERS_AD_UNIT_ID);
+		AndroidAdMob.Client.Init(MY_BANNERS_AD_UNIT_ID);
 
 		//If yoi whant to use Interstisial ad also, you need to set additional ad unin id for Interstisial as well
-		AndroidAdMobController.instance.SetInterstisialsUnitID(MY_INTERSTISIALS_AD_UNIT_ID);
-
+		AndroidAdMob.Client.SetInterstisialsUnitID(MY_INTERSTISIALS_AD_UNIT_ID);
+		//If yoi whant to use Rewarded Video Ads also, you need to set additional ad unin id for Rewarded Video as well
+		AndroidAdMobController.Instance.SetRewardedVideoAdUnitID(MY_REWARDED_VIDEO_AD_UNIT_ID);
 		
 		//Optional, add data for better ad targeting
-		AndroidAdMobController.instance.SetGender(GoogleGender.Male);
-		AndroidAdMobController.instance.AddKeyword("game");
-		AndroidAdMobController.instance.SetBirthday(1989, AndroidMonth.MARCH, 18);
-		AndroidAdMobController.instance.TagForChildDirectedTreatment(false);
+		AndroidAdMob.Client.SetGender(GoogleGender.Male);
+		AndroidAdMob.Client.AddKeyword("game");
+		AndroidAdMob.Client.SetBirthday(1989, AndroidMonth.MARCH, 18);
+		AndroidAdMob.Client.TagForChildDirectedTreatment(false);
 
 		//Causes a device to receive test ads. The deviceId can be obtained by viewing the logcat output after creating a new ad
 		//AndroidAdMobController.instance.AddTestDevice("6B9FA8031AEFDC4758B7D8987F77A5A6");
 
+		AndroidAdMob.Client.OnInterstitialLoaded += OnInterstisialsLoaded; 
+		AndroidAdMob.Client.OnInterstitialOpened += OnInterstisialsOpen;
 
-
-		AndroidAdMobController.instance.OnInterstitialLoaded += OnInterstisialsLoaded; 
-		AndroidAdMobController.instance.OnInterstitialOpened += OnInterstisialsOpen;
-
-
+		AndroidAdMobController.Instance.OnRewardedVideoLoaded += HandleOnRewardedVideoLoaded;
+		AndroidAdMobController.Instance.OnRewardedVideoAdClosed += HandleOnRewardedVideoAdClosed;
 
 		//listening for InApp Event
 		//You will only receive in-app purchase (IAP) ads if you specifically configure an IAP ad campaign in the AdMob front end.
-		AndroidAdMobController.instance.OnAdInAppRequest += OnInAppRequest;
+		AndroidAdMob.Client.OnAdInAppRequest += OnInAppRequest;
+	}
 
-	
+	void HandleOnRewardedVideoAdClosed ()
+	{
+		IsRewardedVideoAdReady = false;
+	}
 
-
+	void HandleOnRewardedVideoLoaded ()
+	{
+		IsRewardedVideoAdReady = true;
 	}
 
 
 	private void StartInterstitialAd() {
-		AndroidAdMobController.instance.StartInterstitialAd ();
+		AndroidAdMob.Client.StartInterstitialAd ();
 	}
 
 	private void LoadInterstitialAd() {
-		AndroidAdMobController.instance.LoadInterstitialAd ();
+		AndroidAdMob.Client.LoadInterstitialAd ();
 	}
 
 	private void ShowInterstitialAd() {
-		AndroidAdMobController.instance.ShowInterstitialAd ();
+		AndroidAdMob.Client.ShowInterstitialAd ();
 	}
 
+	private void LoadRewardedVideoAd () {
+		AndroidAdMobController.Instance.LoadRewardedVideo();
+	}
+
+	private void ShowRewardedVideoAd () {
+		AndroidAdMobController.Instance.ShowRewardedVideo();
+	}
 
 	private void CreateBannerCustomPos() {
-		banner1 = AndroidAdMobController.instance.CreateAdBanner(300, 100, GADBannerSize.BANNER);
+		banner1 = AndroidAdMob.Client.CreateAdBanner(300, 100, GADBannerSize.BANNER);
 	}
 
 	private void CreateBannerUpperLeft() {
-		banner1 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.UpperLeft, GADBannerSize.BANNER);
+		banner1 = AndroidAdMob.Client.CreateAdBanner(TextAnchor.UpperLeft, GADBannerSize.BANNER);
 	}
 
 	private void CreateBannerUpperCneter() {
-		banner1 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.UpperCenter, GADBannerSize.BANNER);
+		banner1 = AndroidAdMob.Client.CreateAdBanner(TextAnchor.UpperCenter, GADBannerSize.BANNER);
 	}
 
 	private void CreateBannerBottomLeft() {
-		banner1 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.LowerLeft, GADBannerSize.BANNER);
+		banner1 = AndroidAdMob.Client.CreateAdBanner(TextAnchor.LowerLeft, GADBannerSize.BANNER);
 	}
 
 	private void CreateBannerBottomCenter() {
-		banner1 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.LowerCenter, GADBannerSize.BANNER);
+		banner1 = AndroidAdMob.Client.CreateAdBanner(TextAnchor.LowerCenter, GADBannerSize.BANNER);
 	}
 
 	private void CreateBannerBottomRight() {
@@ -136,17 +150,17 @@ public class AndroidGoogleAdsExample : MonoBehaviour {
 	}
 
 	private void B1Destrouy() {
-		AndroidAdMobController.instance.DestroyBanner(banner1.id);
+		AndroidAdMob.Client.DestroyBanner(banner1.id);
 		banner1 = null;
 	}
 
 
 	private void SmartTOP() {
-		banner2 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.UpperCenter, GADBannerSize.SMART_BANNER);
+		banner2 = AndroidAdMob.Client.CreateAdBanner(TextAnchor.UpperCenter, GADBannerSize.SMART_BANNER);
 	}
 
 	private void SmartBottom() {
-		banner2 = AndroidAdMobController.instance.CreateAdBanner(TextAnchor.LowerCenter, GADBannerSize.SMART_BANNER);
+		banner2 = AndroidAdMob.Client.CreateAdBanner(TextAnchor.LowerCenter, GADBannerSize.SMART_BANNER);
 	}
 
 	
@@ -164,7 +178,7 @@ public class AndroidGoogleAdsExample : MonoBehaviour {
 	}
 	
 	private void B2Destrouy() {
-		AndroidAdMobController.instance.DestroyBanner(banner2.id);
+		AndroidAdMob.Client.DestroyBanner(banner2.id);
 		banner2 = null;
 	}
 
@@ -190,6 +204,12 @@ public class AndroidGoogleAdsExample : MonoBehaviour {
 			ShowIntersButton.EnabledButton();
 		} else {
 			ShowIntersButton.DisabledButton();
+		}
+
+		if (IsRewardedVideoAdReady) {
+			ShowRewardedVideoButton.EnabledButton();
+		} else {
+			ShowRewardedVideoButton.DisabledButton();
 		}
 
 		if(banner1 != null) {
@@ -297,7 +317,7 @@ public class AndroidGoogleAdsExample : MonoBehaviour {
 		//Then you should perfrom purchase  for this product id, using this or another game billing plugin
 		//Once the purchase is complete, you should call RecordInAppResolution with one of the constants defined in GADInAppResolution:
 
-		AndroidAdMobController.instance.RecordInAppResolution(GADInAppResolution.RESOLUTION_SUCCESS);
+		AndroidAdMob.Client.RecordInAppResolution(GADInAppResolution.RESOLUTION_SUCCESS);
 
 	}
 

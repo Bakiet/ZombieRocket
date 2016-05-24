@@ -11,8 +11,15 @@ public class AndroidSocialNativeExample : MonoBehaviour {
 	}
 
 	public void ShareText() {
+		AndroidSocialGate.OnShareIntentCallback += HandleOnShareIntentCallback;
 		AndroidSocialGate.StartShareIntent("Hello Share Intent", "This is my text to share");
 
+	}
+
+	void HandleOnShareIntentCallback (bool status, string package)
+	{
+		AndroidSocialGate.OnShareIntentCallback -= HandleOnShareIntentCallback;
+		Debug.Log("[HandleOnShareIntentCallback] " + status.ToString() + " " + package);
 	}
 
 	public void ShareScreehshot() {

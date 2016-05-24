@@ -12,15 +12,15 @@ public class RBIAPManager : MonoBehaviour {
 	
 	
 	//replace with your consumable item
-	public const string TIER1 = "com.yourcompany.item1";
-	public const string TIER2 = "com.yourcompany.item2";
-	public const string TIER3 = "com.yourcompany.item3";
-	public const string TIER4 = "com.yourcompany.item4";
-	public const string TIER5 = "com.yourcompany.item5";
-	public const string TIER6 = "com.yourcompany.item6";
-	public const string MAGNET_3 = "com.yourcompany.magnet";
-	public const string HEADSTART_2 = "com.yourcompany.headstart2";
-	public const string HEADSTART_3 = "com.yourcompany.headstart3";
+	public const string TIER1 = "com.bktgames.item1";
+	public const string TIER2 = "com.bktgames.item2";
+	public const string TIER3 = "com.bktgames.item3";
+	public const string TIER4 = "com.bktgames.item4";
+	public const string TIER5 = "com.bktgames.item5";
+	public const string TIER6 = "com.bktgames.item6";
+	public const string MAGNET_3 = "com.bktgames.magnet";
+	public const string HEADSTART_2 = "com.bktgames.headstart2";
+	public const string HEADSTART_3 = "com.bktgames.headstart3";
 	public const string NOADS = "android.iap.code.noads";
 
 	//these are the amounts we want to give the player.
@@ -228,29 +228,29 @@ public class RBIAPManager : MonoBehaviour {
 
 	private static void UpdateStoreData() {
 		//chisking if we already own some consuamble product but forget to consume those
-		if(AndroidInAppPurchaseManager.Instance.inventory.IsProductPurchased(TIER1)) {
+		if(AndroidInAppPurchaseManager.Instance.Inventory.IsProductPurchased(TIER1)) {
 			consume(TIER1);
 		}
-		if(AndroidInAppPurchaseManager.Instance.inventory.IsProductPurchased(TIER2)) {
+		if(AndroidInAppPurchaseManager.Instance.Inventory.IsProductPurchased(TIER2)) {
 			consume(TIER2);
 		}
-		if(AndroidInAppPurchaseManager.Instance.inventory.IsProductPurchased(TIER3)) {
+		if(AndroidInAppPurchaseManager.Instance.Inventory.IsProductPurchased(TIER3)) {
 			consume(TIER3);
 		}
-		if(AndroidInAppPurchaseManager.Instance.inventory.IsProductPurchased(TIER4)) {
+		if(AndroidInAppPurchaseManager.Instance.Inventory.IsProductPurchased(TIER4)) {
 			consume(TIER4);
 		}
-		if(AndroidInAppPurchaseManager.Instance.inventory.IsProductPurchased(TIER5)) {
+		if(AndroidInAppPurchaseManager.Instance.Inventory.IsProductPurchased(TIER5)) {
 			consume(TIER5);
 		}
-		if(AndroidInAppPurchaseManager.Instance.inventory.IsProductPurchased(TIER6)) {
+		if(AndroidInAppPurchaseManager.Instance.Inventory.IsProductPurchased(TIER6)) {
 			consume(TIER6);
 		}
 
-		if(AndroidInAppPurchaseManager.Instance.inventory.IsProductPurchased(HEADSTART_2)) {
+		if(AndroidInAppPurchaseManager.Instance.Inventory.IsProductPurchased(HEADSTART_2)) {
 			consume(HEADSTART_2);
 		}
-		if(AndroidInAppPurchaseManager.Instance.inventory.IsProductPurchased(HEADSTART_3)) {
+		if(AndroidInAppPurchaseManager.Instance.Inventory.IsProductPurchased(HEADSTART_3)) {
 			consume(HEADSTART_3);
 		}
 
@@ -260,11 +260,11 @@ public class RBIAPManager : MonoBehaviour {
 		//This is replacment for restore purchase fnunctionality on IOS
 		
 		
-		if(AndroidInAppPurchaseManager.Instance.inventory.IsProductPurchased(NOADS)) {
+		if(AndroidInAppPurchaseManager.Instance.Inventory.IsProductPurchased(NOADS)) {
 			Inventory.Instance.AddItem("NOADS", 1);
 		}
 
-		if(AndroidInAppPurchaseManager.Instance.inventory.IsProductPurchased(MAGNET_3)) {
+		if(AndroidInAppPurchaseManager.Instance.Inventory.IsProductPurchased(MAGNET_3)) {
 			Inventory.Instance.AddItem("MAGNET_3", 1);
 		}
 	}

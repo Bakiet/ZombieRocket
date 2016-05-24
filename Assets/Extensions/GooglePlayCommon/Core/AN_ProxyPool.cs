@@ -11,8 +11,6 @@ public abstract class AN_ProxyPool  {
 	
 	public static void CallStatic(string className, string methodName, params object[] args) {
 		#if UNITY_ANDROID
-
-
 		
 		if(Application.platform != RuntimePlatform.Android) {
 			return;
@@ -45,9 +43,6 @@ public abstract class AN_ProxyPool  {
 	#if UNITY_ANDROID
 	public static ReturnType CallStatic<ReturnType>(string className, string methodName, params object[] args) {
 
-		
-		
-
 		Debug.Log("AN: Using proxy for class: " + className + " method:" + methodName);
 		
 		try {
@@ -61,8 +56,7 @@ public abstract class AN_ProxyPool  {
 				
 			}
 			
-			return bridge.CallStatic<ReturnType>(methodName, args); 
-			
+			return bridge.CallStatic<ReturnType>(methodName, args);
 			
 		} catch(System.Exception ex) {
 			Debug.LogWarning(ex.Message);
@@ -70,9 +64,7 @@ public abstract class AN_ProxyPool  {
 
 		return default(ReturnType);
 
-
 	}
 	#endif
-
 
 }

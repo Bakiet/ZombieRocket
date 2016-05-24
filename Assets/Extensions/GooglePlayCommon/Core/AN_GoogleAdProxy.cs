@@ -9,10 +9,8 @@ public class AN_GoogleAdProxy  {
 		AN_ProxyPool.CallStatic(CLASS_NAME, methodName, args);
 	}
 
-
 	public static void InitMobileAd(string id) {
 		CallActivityFunction("Bridge_Init", id);
-
 	}
 	
 	public static void ChangeBannersUnitID(string id) {
@@ -22,6 +20,10 @@ public class AN_GoogleAdProxy  {
 	public static void ChangeInterstisialsUnitID(string id) {
 		CallActivityFunction("Bridge_ChangeInterstisialsUnitID", id);
 	}
+
+	public static void ChangeRewardedVideoUnitID(string id) {
+		CallActivityFunction("Bridge_ChangeRewardedVideoUnitID", id);
+	}
 	
 	public static void CreateBannerAd(int gravity, int size, int id) {
 		CallActivityFunction("Bridge_CreateBannerAd", gravity.ToString(), size.ToString(), id.ToString());
@@ -29,8 +31,7 @@ public class AN_GoogleAdProxy  {
 	
 	public static void CreateBannerAdPos(int x, int y, int size, int id) {
 		CallActivityFunction("Bridge_CreateBannerAdPos", x.ToString(), y.ToString(), size.ToString(), id.ToString());
-	}
-	
+	}	
 	
 	// By nastrandsky
 	public static void SetBannerPosition(int gravity, int bannerId) {
@@ -40,9 +41,7 @@ public class AN_GoogleAdProxy  {
 	// By nastrandsky
 	public static void SetBannerPosition(int x, int y, int bannerId) {
 		CallActivityFunction ("Bridge_SetBannerPosition", x.ToString(), y.ToString(), bannerId.ToString());
-	}
-	
-	
+	}	
 	
 	public static void HideAd(int id) { 
 		CallActivityFunction ("Bridge_HideAd", id.ToString());
@@ -79,6 +78,14 @@ public class AN_GoogleAdProxy  {
 	public static void ShowInterstitialAd() {
 		CallActivityFunction ("Bridge_ShowInterstitialAd");
 	}
+
+	public static void LoadRewardedVideo () {
+		CallActivityFunction("Bridge_LoadRewardedVideo");
+	}
+
+	public static void ShowRewardedVideo () {
+		CallActivityFunction("Bridge_ShowRewardedVideo");
+	}
 	
 	public static void RecordInAppResolution(int res) {
 		CallActivityFunction ("Bridge_RecordInAppResolution", res.ToString());
@@ -98,8 +105,7 @@ public class AN_GoogleAdProxy  {
 			CallActivityFunction ("Bridge_TagForChildDirectedTreatment", "1");
 		} else {
 			CallActivityFunction ("Bridge_TagForChildDirectedTreatment", "0");
-		}
-		
+		}		
 	}
 	
 	public static void AddTestDevice(string deviceId) {

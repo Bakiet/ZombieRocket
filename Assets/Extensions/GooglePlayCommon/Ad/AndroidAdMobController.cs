@@ -17,18 +17,28 @@ public class AndroidAdMobController : SA_Singleton<AndroidAdMobController>, Goog
 	private bool _IsInited = false ;
 	private Dictionary<int, AndroidADBanner> _banners; 
 
+	private bool _IsEditorTestingEnabled = true;
+	private int _EditorFillRate = 100;
 	
 	private string _BannersUunitId;
 	private string _InterstisialUnitId;
-
+	private string _RewardedVideoAdUnitId;
 
 	//Actions
-	private  Action _OnInterstitialLoaded 			= delegate {};
-	private Action _OnInterstitialFailedLoading 	= delegate {};
-	private Action _OnInterstitialOpened 			= delegate {};
-	private Action _OnInterstitialClosed 			= delegate {};
-	private Action _OnInterstitialLeftApplication  	= delegate {};
-	private Action<string> _OnAdInAppRequest		= delegate {};
+	public event Action<string, int> OnRewarded 				= delegate {};
+	public event Action OnRewardedVideoAdClosed 				= delegate {};
+	public event Action<int> OnRewardedVideoAdFailedToLoad 		= delegate {};
+	public event Action OnRewardedVideoAdLeftApplication 		= delegate {};
+	public event Action OnRewardedVideoLoaded 					= delegate {};
+	public event Action OnRewardedVideoAdOpened 				= delegate {};
+	public event Action OnRewardedVideoStarted 					= delegate {};
+
+	public event Action OnInterstitialLoaded 			= delegate {};
+	public event Action OnInterstitialFailedLoading 	= delegate {};
+	public event Action OnInterstitialOpened 			= delegate {};
+	public event Action OnInterstitialClosed 			= delegate {};
+	public event Action OnInterstitialLeftApplication 	= delegate {};
+	public event Action<string> OnAdInAppRequest		= delegate {};
 
 
 
@@ -58,8 +68,16 @@ public class AndroidAdMobController : SA_Singleton<AndroidAdMobController>, Goog
 			return;
 		}
 		_IsInited = true;
+
+		if (IsEditorTestingEnabled) {
+			Debug.Log("Initialized with Editor Testing Profile");
+			SA_EditorAd.Instance.SetFillRate(_EditorFillRate);
+			return;
+		}
+
 		_BannersUunitId 	= ad_unit_id;
 		_InterstisialUnitId = ad_unit_id;
+		_RewardedVideoAdUnitId = ad_unit_id;
 
 		_banners =  new Dictionary<int, AndroidADBanner>();
 
@@ -77,8 +95,10 @@ public class AndroidAdMobController : SA_Singleton<AndroidAdMobController>, Goog
 		SetInterstisialsUnitID(interstisial_unit_id);
 	}
 
-
-
+	public void InitEditorTesting (bool isTestingEnabled, int editorFillRate) {
+		_IsEditorTestingEnabled = isTestingEnabled;
+		_EditorFillRate = editorFillRate;
+	}
 
 	public void SetBannersUnitID(string ad_unit_id) {
 		_BannersUunitId = ad_unit_id;
@@ -90,8 +110,10 @@ public class AndroidAdMobController : SA_Singleton<AndroidAdMobController>, Goog
 		AN_GoogleAdProxy.ChangeInterstisialsUnitID(ad_unit_id);
 	}
 
-
-
+	public void SetRewardedVideoAdUnitID(string id) {
+		_RewardedVideoAdUnitId = id;
+		AN_GoogleAdProxy.ChangeRewardedVideoUnitID(_RewardedVideoAdUnitId);
+	}
 
 	//--------------------------------------
 	//  BUILDER METHODS
@@ -222,10 +244,17 @@ public class AndroidAdMobController : SA_Singleton<AndroidAdMobController>, Goog
 		}
 	}
 
-	
+	private bool _InterstitialShowOnLoad = false;
 	public void StartInterstitialAd() {
 		if(!_IsInited) {
 			Debug.LogWarning ("StartInterstitialAd shoudl be called only after Init function. Call ignored");
+			return;
+		}
+
+		if (IsEditorTestingEnabled) {
+			_InterstitialShowOnLoad = true;
+			SA_EditorAd.OnInterstitialLoadComplete += HandleOnInterstitialLoadComplete_Editor;
+			SA_EditorAd.Instance.LoadInterstitial();
 			return;
 		}
 
@@ -238,7 +267,27 @@ public class AndroidAdMobController : SA_Singleton<AndroidAdMobController>, Goog
 			return;
 		}
 
+		if (IsEditorTestingEnabled) {
+			SA_EditorAd.OnInterstitialLoadComplete += HandleOnInterstitialLoadComplete_Editor;
+			SA_EditorAd.Instance.LoadInterstitial();
+			return;
+		}
+
 		AN_GoogleAdProxy.LoadInterstitialAd();
+	}
+
+	private void HandleOnInterstitialLoadComplete_Editor (bool success)
+	{
+		SA_EditorAd.OnInterstitialLoadComplete -= HandleOnInterstitialLoadComplete_Editor;
+		if (success) {
+			OnInterstitialLoaded();
+			if (_InterstitialShowOnLoad) {
+				_InterstitialShowOnLoad = false;
+				ShowInterstitialAd();
+			}
+		} else {
+			OnInterstitialFailedLoading();
+		}
 	}
 	
 	public void ShowInterstitialAd() {
@@ -247,9 +296,83 @@ public class AndroidAdMobController : SA_Singleton<AndroidAdMobController>, Goog
 			return;
 		}
 
+		if (IsEditorTestingEnabled) {
+			SA_EditorAd.OnInterstitialLeftApplication += HandleOnInterstitialLeftApplication_Editor;
+			SA_EditorAd.OnInterstitialFinished += HandleOnInterstitialFinished_Editor;
+			SA_EditorAd.Instance.ShowInterstitial();
+			OnInterstitialOpened();
+			return;
+		}
+
 		AN_GoogleAdProxy.ShowInterstitialAd();
 	}
 
+	void HandleOnInterstitialFinished_Editor (bool isRewarded)
+	{
+		SA_EditorAd.OnInterstitialLeftApplication -= HandleOnInterstitialLeftApplication_Editor;
+		SA_EditorAd.OnInterstitialFinished -= HandleOnInterstitialFinished_Editor;
+		OnInterstitialClosed();
+	}
+
+	void HandleOnInterstitialLeftApplication_Editor ()
+	{
+		OnInterstitialLeftApplication();
+	}
+
+	public void LoadRewardedVideo() {
+		if(!_IsInited) {
+			Debug.LogWarning ("ShowRewardedVideo shoudl be called only after Init function. Call ignored");
+			return;
+		}
+
+		if (IsEditorTestingEnabled) {
+			SA_EditorAd.OnVideoLoadComplete += HandleOnVideoLoadComplete_Editor;
+			SA_EditorAd.Instance.LoadVideo();
+			return;
+		}
+		
+		AN_GoogleAdProxy.LoadRewardedVideo();
+	}
+
+	void HandleOnVideoLoadComplete_Editor (bool success)
+	{
+		SA_EditorAd.OnVideoLoadComplete -= HandleOnVideoLoadComplete_Editor;
+
+		if (success) {
+			OnRewardedVideoLoaded();
+		} else {
+			OnRewardedVideoAdFailedToLoad(-1);
+		}
+	}
+
+	public void ShowRewardedVideo() {
+		if(!_IsInited) {
+			Debug.LogWarning ("ShowRewardedVideo shoudl be called only after Init function. Call ignored");
+			return;
+		}
+
+		if (IsEditorTestingEnabled) {
+			SA_EditorAd.OnVideoLeftApplication += HandleOnVideoLeftApplication_Editor;
+			SA_EditorAd.OnVideoFinished += HandleOnVideoFinished_Editor;
+			SA_EditorAd.Instance.ShowVideo();
+			OnRewardedVideoAdOpened();
+			return;
+		}
+		
+		AN_GoogleAdProxy.ShowRewardedVideo();
+	}
+
+	void HandleOnVideoFinished_Editor (bool isRewarded)
+	{
+		SA_EditorAd.OnVideoLeftApplication -= HandleOnVideoLeftApplication_Editor;
+		SA_EditorAd.OnVideoFinished -= HandleOnVideoFinished_Editor;
+		OnRewardedVideoAdClosed();
+	}
+
+	void HandleOnVideoLeftApplication_Editor ()
+	{
+		OnRewardedVideoAdLeftApplication();
+	}
 
 	public void RecordInAppResolution(GADInAppResolution resolution) {
 		AN_GoogleAdProxy.RecordInAppResolution((int) resolution);
@@ -303,76 +426,19 @@ public class AndroidAdMobController : SA_Singleton<AndroidAdMobController>, Goog
 		get {
 			return _InterstisialUnitId;
 		}
-	}
+	}	
 
-
-	//--------------------------------------
-	//  Actions 
-	//--------------------------------------
-
-	public Action OnInterstitialLoaded {
+	public string RewardedVideoAdUnitId {
 		get {
-			return _OnInterstitialLoaded;
-		}
-
-		set {
-			_OnInterstitialLoaded = value;
+			return _RewardedVideoAdUnitId;
 		}
 	}
 
-	public Action OnInterstitialFailedLoading {
+	public bool IsEditorTestingEnabled {
 		get {
-			return _OnInterstitialFailedLoading;
-		}
-		
-		set {
-			_OnInterstitialFailedLoading = value;
+			return SA_EditorTesting.IsInsideEditor && _IsEditorTestingEnabled;
 		}
 	}
-
-
-	public Action OnInterstitialOpened {
-		get {
-			return _OnInterstitialOpened;
-		}
-		
-		set {
-			_OnInterstitialOpened = value;
-		}
-	}
-
-	public Action OnInterstitialClosed {
-		get {
-			return _OnInterstitialClosed;
-		}
-		
-		set {
-			_OnInterstitialClosed = value;
-		}
-	}
-
-
-	public Action OnInterstitialLeftApplication {
-		get {
-			return _OnInterstitialLeftApplication;
-		}
-		
-		set {
-			_OnInterstitialLeftApplication = value;
-		}
-	}
-
-
-	public Action<string> OnAdInAppRequest {
-		get {
-			return _OnAdInAppRequest;
-		}
-		
-		set {
-			_OnAdInAppRequest = value;
-		}
-	}
-	
 
 	//--------------------------------------
 	//  EVENTS BANNER AD
@@ -437,23 +503,56 @@ public class AndroidAdMobController : SA_Singleton<AndroidAdMobController>, Goog
 
 	
 	private void OnInterstitialAdLoaded()  {
-		_OnInterstitialLoaded();
+		OnInterstitialLoaded();
 	}
 	
 	private void OnInterstitialAdFailedToLoad() {
-		_OnInterstitialFailedLoading();;
+		OnInterstitialFailedLoading();;
 	}
 	
 	private void OnInterstitialAdOpened() {
-		_OnInterstitialOpened();
+		OnInterstitialOpened();
 	}
 	
 	private void OnInterstitialAdClosed() {
-		_OnInterstitialClosed();
+		OnInterstitialClosed();
 	}
 	
 	private void OnInterstitialAdLeftApplication() {
-		_OnInterstitialLeftApplication();
+		OnInterstitialLeftApplication();
+	}
+
+	//--------------------------------------
+	//  EVENTS REWARDED VIDEO AD
+	//--------------------------------------
+
+	private void RewardedCallback(string data) {
+		string[] rawData = data.Split(new string[] {"|"}, StringSplitOptions.None);
+		OnRewarded(rawData[0], Int32.Parse(rawData[1]));
+	}
+
+	private void RewardedVideoAdClosed() {
+		OnRewardedVideoAdClosed();
+	}
+
+	private void RewardedVideoAdFailedToLoad(string errorCode) {
+		OnRewardedVideoAdFailedToLoad(Int32.Parse(errorCode));
+	}
+
+	private void RewardedVideoAdLeftApplication() {
+		OnRewardedVideoAdLeftApplication();
+	}
+
+	private void RewardedVideoLoaded() {
+		OnRewardedVideoLoaded();
+	}
+
+	private void RewardedVideoAdOpened() {
+		OnRewardedVideoAdOpened();
+	}
+
+	private void RewardedVideoStarted() {
+		OnRewardedVideoStarted();
 	}
 	
 	//--------------------------------------
@@ -461,7 +560,7 @@ public class AndroidAdMobController : SA_Singleton<AndroidAdMobController>, Goog
 	//--------------------------------------
 
 	private void OnInAppPurchaseRequested(string productId) {
-		_OnAdInAppRequest(productId);
+		OnAdInAppRequest(productId);
 	}
 
 

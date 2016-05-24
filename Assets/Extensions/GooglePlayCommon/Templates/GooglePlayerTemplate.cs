@@ -67,11 +67,12 @@ public class GooglePlayerTemplate {
 	public void LoadImage() {
 		
 		if(image != null) {
+			BigPhotoLoaded(image);
 			return;
 		}
 		
 		
-		WWWTextureLoader loader = WWWTextureLoader.Create();
+		SA_WWWTextureLoader loader = SA_WWWTextureLoader.Create();
 		loader.OnLoad += OnProfileImageLoaded;
 		loader.LoadTexture(_hiResImageUrl);
 	}
@@ -80,11 +81,12 @@ public class GooglePlayerTemplate {
 	public void LoadIcon() {
 		
 		if(icon != null) {
+			SmallPhotoLoaded(icon);
 			return;
 		}
 
 
-		WWWTextureLoader loader = WWWTextureLoader.Create();
+		SA_WWWTextureLoader loader = SA_WWWTextureLoader.Create();
 		loader.OnLoad += OnProfileIconLoaded;
 		loader.LoadTexture(_iconImageUrl);
 	}

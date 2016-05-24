@@ -36,7 +36,7 @@ public class FB_Score  {
 		}
 		
 		
-		WWWTextureLoader loader = WWWTextureLoader.Create();
+		SA_WWWTextureLoader loader = SA_WWWTextureLoader.Create();
 		
 		switch(size) {
 		case FB_ProfileImageSize.large:

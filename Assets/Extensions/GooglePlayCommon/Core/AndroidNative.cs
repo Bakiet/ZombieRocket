@@ -82,9 +82,12 @@ public class AndroidNative {
 		CallAndroidNativeBridge("SaveToGalalry", ImageData, name);
 	}
 
-
 	public static void GetImageFromGallery() {
 		CallAndroidNativeBridge("GetImageFromGallery");
+	}
+
+	public static void GetImagesFromGallery() {
+		CallAndroidNativeBridge("GetImagesFromGallery");
 	}
 	
 	public static void GetImageFromCamera(bool bSaveToGallery = false) {
@@ -112,6 +115,10 @@ public class AndroidNative {
 		CallUtility("loadPackagesList");
 	}
 
+	public static void InvitePlusFriends () {
+		CallUtility("InvitePlusFriends");
+	}
+
 	public static void LoadNetworkInfo () {
 		CallUtility("loadNetworkInfo");
 	}
@@ -130,8 +137,7 @@ public class AndroidNative {
 	
 	public static void LoadContacts() {
 		CallAndroidNativeBridge("loadAddressBook");
-	}
-	
+	}	
 	
 	public static void LoadPackageInfo() {
 		CallAndroidNativeBridge("LoadPackageInfo");
@@ -145,14 +151,21 @@ public class AndroidNative {
 		CallUtility("GetExternalStoragePath");
 	}
 
+	public static string GetExternalStoragePublicDirectory(string type) {
+#if UNITY_ANDROID
+		return CallUtilityForResult<string>("GetExternalStoragePublicDirectory", type);
+#else
+		return string.Empty;
+#endif
+	}
+
 	public static void LoadLocaleInfo () {
 		CallUtility("LoadLocaleInfo");
 	}
 
 	public static void StartLockTask() {
 		CallAndroidNativeBridge ("StartLockTask");
-	}
-	
+	}	
 	
 	public static void StopLockTask() {
 		CallAndroidNativeBridge ("StopLockTask");
@@ -167,9 +180,13 @@ public class AndroidNative {
 	private static void CallUtility(string methodName, params object[] args) {
 		AN_ProxyPool.CallStatic(UTILITY_CLASSS, methodName, args);
 	}
-
-
-
+	
+#if UNITY_ANDROID
+	private static ReturnType CallUtilityForResult<ReturnType>(string methodName, params object[] args) {
+		return AN_ProxyPool.CallStatic<ReturnType>(UTILITY_CLASSS, methodName, args);
+	}
+#endif
+	
 	// --------------------------------------
 	// Native Bridge
 	// --------------------------------------

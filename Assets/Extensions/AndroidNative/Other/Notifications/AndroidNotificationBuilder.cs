@@ -12,8 +12,25 @@ public class AndroidNotificationBuilder {
 	private bool _showIfAppForeground = true;
 	private string _largeIcon = string.Empty;
 	private Texture2D _bigPicture = null;
+	private NotificationColor _color = null;
+	private int _wakeLockTime = 10000;
 
 	private const string SOUND_SILENT = "SOUND_SILENT";
+
+	public class NotificationColor {
+		
+		private Color _value;
+		
+		public NotificationColor(Color value) {
+			_value = value;
+		}
+		
+		public Color Value {
+			get {
+				return _value;
+			}
+		}
+	}
 
 	public AndroidNotificationBuilder(int id, string title, string message, int time) {
 		_id = id;
@@ -26,6 +43,11 @@ public class AndroidNotificationBuilder {
 		_sound = AndroidNativeSettings.Instance.LocalNotificationSound == null ? string.Empty : AndroidNativeSettings.Instance.LocalNotificationSound.name;
 		_vibration = AndroidNativeSettings.Instance.EnableVibrationLocal;
 		_showIfAppForeground = AndroidNativeSettings.Instance.ShowWhenAppIsForeground;
+		_wakeLockTime = AndroidNativeSettings.Instance.LocalNotificationWakeLockTimer;
+	}
+
+	public void SetColor(NotificationColor color) {
+		_color = color;
 	}
 
 	public void SetSoundName(string sound) {
@@ -56,6 +78,10 @@ public class AndroidNotificationBuilder {
 		_bigPicture = picture;
 	}
 
+	public void SetWakeLockTime(int wakeTime) {
+		_wakeLockTime = wakeTime;
+	}
+
 	public int Id {
 		get {
 			return _id;
@@ -77,6 +103,12 @@ public class AndroidNotificationBuilder {
 	public int Time {
 		get {
 			return _time;
+		}
+	}
+
+	public NotificationColor Color {
+		get {
+			return _color;
 		}
 	}
 
@@ -113,6 +145,12 @@ public class AndroidNotificationBuilder {
 	public Texture2D BigPicture {
 		get {
 			return _bigPicture;
+		}
+	}
+
+	public int WakeLockTime {
+		get {
+			return _wakeLockTime;
 		}
 	}
 }

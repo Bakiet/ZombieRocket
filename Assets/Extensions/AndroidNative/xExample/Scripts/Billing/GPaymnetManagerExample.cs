@@ -33,10 +33,10 @@ public class GPaymnetManagerExample : MonoBehaviour {
 
 		//When you will add your own proucts you can skip this code section of you already have added
 		//your products ids under the editor setings menu
-		AndroidInAppPurchaseManager.instance.AddProduct(ANDROID_TEST_PURCHASED);
-		AndroidInAppPurchaseManager.instance.AddProduct(ANDROID_TEST_CANCELED);
-		AndroidInAppPurchaseManager.instance.AddProduct(ANDROID_TEST_REFUNDED);
-		AndroidInAppPurchaseManager.instance.AddProduct(ANDROID_TEST_ITEM_UNAVAILABLE);
+		AndroidInAppPurchaseManager.Client.AddProduct(ANDROID_TEST_PURCHASED);
+		AndroidInAppPurchaseManager.Client.AddProduct(ANDROID_TEST_CANCELED);
+		AndroidInAppPurchaseManager.Client.AddProduct(ANDROID_TEST_REFUNDED);
+		AndroidInAppPurchaseManager.Client.AddProduct(ANDROID_TEST_ITEM_UNAVAILABLE);
 
 
 		//listening for purchase and consume events
@@ -49,7 +49,7 @@ public class GPaymnetManagerExample : MonoBehaviour {
 	
 
 		//you may use loadStore function without parametr if you have filled base64EncodedPublicKey in plugin settings
-		AndroidInAppPurchaseManager.Instance.LoadStore();
+		AndroidInAppPurchaseManager.Client.Connect();
 
 		//or You can pass base64EncodedPublicKey using scirption:
 		//AndroidInAppPurchaseManager.instance.loadStore(YOU_BASE_64_KEY_HERE);
@@ -64,11 +64,11 @@ public class GPaymnetManagerExample : MonoBehaviour {
 
 
 	public static void purchase(string SKU) {
-		AndroidInAppPurchaseManager.Instance.Purchase (SKU);
+		AndroidInAppPurchaseManager.Client.Purchase (SKU);
 	}
 
 	public static void consume(string SKU) {
-		AndroidInAppPurchaseManager.Instance.Consume (SKU);
+		AndroidInAppPurchaseManager.Client.Consume (SKU);
 	}
 
 	//--------------------------------------
@@ -105,7 +105,7 @@ public class GPaymnetManagerExample : MonoBehaviour {
 		}
 
 		Debug.Log ("Purchased Responce: " + result.response.ToString() + " " + result.message);
-		Debug.Log (result.purchase.originalJson);
+
 	}
 
 
@@ -125,10 +125,9 @@ public class GPaymnetManagerExample : MonoBehaviour {
 	private static void OnBillingConnected(BillingResult result) {
 		AndroidInAppPurchaseManager.ActionBillingSetupFinished -= OnBillingConnected;
 
-
 		if(result.isSuccess) {
 			//Store connection is Successful. Next we loading product and customer purchasing details
-			AndroidInAppPurchaseManager.Instance.RetrieveProducDetails();
+			AndroidInAppPurchaseManager.Client.RetrieveProducDetails();
 			AndroidInAppPurchaseManager.ActionRetrieveProducsFinished += OnRetrieveProductsFinised;
 		} 
 
@@ -145,10 +144,10 @@ public class GPaymnetManagerExample : MonoBehaviour {
 
 		if(result.isSuccess) {
 			_isInited = true;
-			AndroidMessage.Create("Success", "Billing init complete inventory contains: " + AndroidInAppPurchaseManager.instance.Inventory.Purchases.Count + " products");
+			AndroidMessage.Create("Success", "Billing init complete inventory contains: " + AndroidInAppPurchaseManager.Client.Inventory.Purchases.Count + " products");
 
 			Debug.Log("Loaded products names");
-			foreach(GoogleProductTemplate tpl in AndroidInAppPurchaseManager.instance.Inventory.Products) {
+			foreach(GoogleProductTemplate tpl in AndroidInAppPurchaseManager.Client.Inventory.Products) {
 				Debug.Log(tpl.Title);
 				Debug.Log(tpl.OriginalJson);
 			}

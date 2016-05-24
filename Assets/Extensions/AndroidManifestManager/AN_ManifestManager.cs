@@ -135,7 +135,7 @@ static public class AN_ManifestManager {
 
 	public static void SaveManifest() {
 #if !(UNITY_WP8 || UNITY_METRO)
-		FileStaticAPI.CreateFolder (MANIFEST_FOLDER_PATH);
+		SA_FileStaticAPI.CreateFolder (MANIFEST_FOLDER_PATH);
 
 		XmlDocument newDoc = new XmlDocument ();
 		//Create XML header

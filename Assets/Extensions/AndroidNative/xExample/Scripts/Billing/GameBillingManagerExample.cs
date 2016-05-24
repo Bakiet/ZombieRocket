@@ -35,8 +35,8 @@ public class GameBillingManagerExample : MonoBehaviour {
 		
 		//Filling product list
 		//You can skip this if you alredy did this in Editor settings menu
-		AndroidInAppPurchaseManager.instance.AddProduct(COINS_ITEM);
-		AndroidInAppPurchaseManager.instance.AddProduct(COINS_BOOST);
+		AndroidInAppPurchaseManager.Client.AddProduct(COINS_ITEM);
+		AndroidInAppPurchaseManager.Client.AddProduct(COINS_BOOST);
 
 		
 		//listening for purchase and consume events
@@ -48,7 +48,7 @@ public class GameBillingManagerExample : MonoBehaviour {
 	
 
 		//you may use loadStore function without parametr if you have filled base64EncodedPublicKey in plugin settings
-		AndroidInAppPurchaseManager.Instance.LoadStore();
+		AndroidInAppPurchaseManager.Client.Connect();
 
 		ListnersAdded = true;
 		
@@ -61,11 +61,11 @@ public class GameBillingManagerExample : MonoBehaviour {
 	
 	
 	public static void purchase(string SKU) {
-		AndroidInAppPurchaseManager.Instance.Purchase (SKU);
+		AndroidInAppPurchaseManager.Client.Purchase (SKU);
 	}
 	
 	public static void consume(string SKU) {
-		AndroidInAppPurchaseManager.Instance.Consume (SKU);
+		AndroidInAppPurchaseManager.Client.Consume (SKU);
 	}
 	
 	//--------------------------------------
@@ -147,7 +147,7 @@ public class GameBillingManagerExample : MonoBehaviour {
 		if(result.isSuccess) {
 			//Store connection is Successful. Next we loading product and customer purchasing details
 			AndroidInAppPurchaseManager.ActionRetrieveProducsFinished += OnRetrieveProductsFinised;
-			AndroidInAppPurchaseManager.Instance.RetrieveProducDetails();
+			AndroidInAppPurchaseManager.Client.RetrieveProducDetails();
 
 		} 
 		
@@ -172,12 +172,12 @@ public class GameBillingManagerExample : MonoBehaviour {
 
 	private static void UpdateStoreData() {
 
-		foreach(GoogleProductTemplate p in AndroidInAppPurchaseManager.instance.Inventory.Products) {
+		foreach(GoogleProductTemplate p in AndroidInAppPurchaseManager.Client.Inventory.Products) {
 			Debug.Log("Loaded product: " + p.Title);
 		}
 
 		//chisking if we already own some consuamble product but forget to consume those
-		if(AndroidInAppPurchaseManager.instance.Inventory.IsProductPurchased(COINS_ITEM)) {
+		if(AndroidInAppPurchaseManager.Client.Inventory.IsProductPurchased(COINS_ITEM)) {
 			consume(COINS_ITEM);
 		}
 
@@ -186,7 +186,7 @@ public class GameBillingManagerExample : MonoBehaviour {
 		//This is replacment for restore purchase fnunctionality on IOS
 
 
-		if(AndroidInAppPurchaseManager.instance.Inventory.IsProductPurchased(COINS_BOOST)) {
+		if(AndroidInAppPurchaseManager.Client.Inventory.IsProductPurchased(COINS_BOOST)) {
 			GameDataExample.EnableCoinsBoost();
 		}
 

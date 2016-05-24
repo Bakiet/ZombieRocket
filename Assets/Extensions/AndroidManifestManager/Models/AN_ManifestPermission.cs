@@ -99,7 +99,7 @@ static class AN_MenifestPermissionMethods {
 
 		case AN_ManifestPermission.INSTALL_SHORTCUT:
 		case AN_ManifestPermission.UNINSTALL_SHORTCUT:
-			prefix = "ccom.android.launcher.permission.";
+			prefix = "com.android.launcher.permission.";
 			break;
 
 		case AN_ManifestPermission.ADD_VOICEMAIL:

@@ -4,16 +4,11 @@ using System.Collections;
 
 
 public class AndroidImagePickResult : AndroidActivityResult {
-
-
+	
 	private Texture2D _Image = null;
 	private string _ImagePath = string.Empty;
 
-
-
 	public AndroidImagePickResult(string codeString, string ImageData, string ImagePathInfo) : base("0", codeString) {
-
-
 
 		if(ImageData.Length > 0) {
 			byte[] decodedFromBase64 = System.Convert.FromBase64String(ImageData);
@@ -24,7 +19,6 @@ public class AndroidImagePickResult : AndroidActivityResult {
 		_ImagePath = ImagePathInfo;
 
 	}
-	
 	
 	[Obsolete("image is deprecated, please use Image instead.")]
 	public Texture2D image {
@@ -44,8 +38,4 @@ public class AndroidImagePickResult : AndroidActivityResult {
 			return _ImagePath;
 		}
 	}
-
-
-
-
 }
